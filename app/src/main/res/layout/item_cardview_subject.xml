@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/card_background"
+            android:background="@color/subject_background"
             android:orientation="vertical"
             android:paddingTop="8dp"
             android:paddingBottom="8dp">
@@ -50,34 +50,88 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:id="@+id/tv_subject_password"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="ABCD" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_subject_assignmentAmount"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/pin" />
+
+                    <TextView
+                        android:id="@+id/tv_subject_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="ABCD" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="4 Tugas" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/assignment" />
+
+                    <TextView
+                        android:id="@+id/tv_subject_assignmentAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="4 Tugas" />
+                </LinearLayout>
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_subject_teacher"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Pak Ogah" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_subject_studentAmount"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/teacher" />
+
+                    <TextView
+                        android:id="@+id/tv_subject_teacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Pak Ogah" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="20 Siswa" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/student" />
+
+                    <TextView
+                        android:id="@+id/tv_subject_studentAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="20 Siswa" />
+                </LinearLayout>
+
+
             </TableRow>
         </TableLayout>
     </LinearLayout>

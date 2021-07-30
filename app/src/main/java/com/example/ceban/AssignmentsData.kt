@@ -14,9 +14,9 @@ object AssignmentsData {
     )
 
     private val assignmentNames = arrayOf(
-        "Tugas Halaman 110",
-        "Tugas Halaman 111",
-        "Tugas Halaman 112",
+        "Tugas Penjaskes Halaman 120",
+        "Tugas Halaman 15",
+        "Tugas Halaman 20",
     )
 
     private val assignmentDueDateTimes = arrayOf(
@@ -26,7 +26,7 @@ object AssignmentsData {
     )
 
     private val assignmentQuestions = arrayOf(
-        "1. Sebutkan jenis-jenis pernafasan\n2. Sebutkan rasa yang pernah ada",
+        "Jelaskan secara singkat sejarah tenis meja. Tulis di buku tulis minimal 1/2 halaman. Kumpulkan maksimal 11 Agustus 2021 pukul 23.59",
         "1. Sebutkan jenis-jenis pernafasan",
         "1. Sebutkan jenis-jenis pernafasan"
     )

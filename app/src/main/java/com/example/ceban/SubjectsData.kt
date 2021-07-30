@@ -9,7 +9,7 @@ object SubjectsData {
     )
 
     private val subjectNames = arrayOf(
-        "Bahasa Indonesia",
+        "Penjaskes",
         "Bahasa Inggris",
         "IPA",
         "Matematika"
@@ -17,37 +17,37 @@ object SubjectsData {
 
     private val subjectClass = arrayOf(
         "XII-MIA 1",
-        "XII-MIA 2",
-        "XII-MIA 3",
-        "XII-MIA 4"
+        "XII-MIA 1",
+        "XII-MIA 1",
+        "XII-MIA 1"
     )
 
     private val subjectPassword = arrayOf(
-        "ABCD12",
-        "ABCD12",
-        "ABCD12",
-        "ABCD12",
+        "AXCF32",
+        "B93PS2",
+        "A9JA12",
+        "K21HS2",
     )
 
     private val subjectTeacher = arrayOf(
-        "Pak Ogah",
-        "Pak Ogah",
-        "Pak Ogah",
-        "Pak Ogah"
+        "Hendra Irawan",
+        "Rina Kartika",
+        "Agus Kuncoro",
+        "Sella Andriani"
     )
 
     private val subjectStudentAmount = arrayOf(
-        10,
-        20,
-        30,
-        35
+        26,
+        21,
+        29,
+        23
     )
 
     private val subjectAssignmentAmount = arrayOf(
-        10,
-        20,
-        30,
-        40
+        7,
+        6,
+        3,
+        5
     )
 
     val listData: ArrayList<Subject>
