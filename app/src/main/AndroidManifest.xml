@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ceban">
+        <activity android:name=".StudentAnswerActivity"></activity>
+        <activity android:name=".AssignmentDetailActivity" />
+        <activity android:name=".AssignmentActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
