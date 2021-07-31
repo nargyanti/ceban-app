@@ -1,4 +1,6 @@
-package com.example.ceban
+package com.example.ceban.utils
+
+import com.example.ceban.core.model.Subject
 
 object SubjectsData {
     private val subjectId = arrayOf(

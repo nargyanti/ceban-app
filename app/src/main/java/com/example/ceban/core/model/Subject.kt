@@ -1,4 +1,4 @@
-package com.example.ceban
+package com.example.ceban.core.model
 
 data class Subject(
     var id: Int = 0,

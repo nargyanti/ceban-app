@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="12dp"
+    android:layout_marginBottom="12dp"
     card_view:cardCornerRadius="10dp">
 
     <LinearLayout
@@ -29,6 +29,7 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                style="@style/Title"
                 tools:text="Mata Pelajaran" />
 
             <TextView
@@ -36,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                style="@style/Body"
                 tools:text="XII-IPA 1" />
         </LinearLayout>
 
@@ -66,6 +68,7 @@
                         android:id="@+id/tv_subject_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Body"
                         tools:text="ABCD" />
                 </LinearLayout>
 
@@ -85,6 +88,7 @@
                         android:id="@+id/tv_subject_assignmentAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Body"
                         tools:text="4 Tugas" />
                 </LinearLayout>
             </TableRow>
@@ -109,6 +113,7 @@
                         android:id="@+id/tv_subject_teacher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Body"
                         tools:text="Pak Ogah" />
                 </LinearLayout>
 
@@ -128,6 +133,7 @@
                         android:id="@+id/tv_subject_studentAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Body"
                         tools:text="20 Siswa" />
                 </LinearLayout>
 

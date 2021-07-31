@@ -1,4 +1,6 @@
-package com.example.ceban
+package com.example.ceban.utils
+
+import com.example.ceban.core.model.Student
 
 object StudentsData {
     private val studentId = arrayOf(
@@ -37,12 +39,12 @@ object StudentsData {
     val listData: ArrayList<Student>
         get() {
             val list = arrayListOf<Student>()
-            for (position in StudentsData.studentNames.indices) {
+            for (position in studentNames.indices) {
                 val student = Student()
-                student.id = StudentsData.studentId[position]
-                student.name = StudentsData.studentNames[position]
-                student.className = StudentsData.studentClassName[position]
-                student.no = StudentsData.studentNo[position]
+                student.id = studentId[position]
+                student.name = studentNames[position]
+                student.className = studentClassName[position]
+                student.no = studentNo[position]
                 list.add(student)
             }
             return list

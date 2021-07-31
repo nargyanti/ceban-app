@@ -1,4 +1,4 @@
-package com.example.ceban
+package com.example.ceban.ui.assignment.home
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ceban.R
+import com.example.ceban.core.model.Assignment
+import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
 
 class CardViewAssignmentAdapter(
     private val listAssignment: ArrayList<Assignment>) :

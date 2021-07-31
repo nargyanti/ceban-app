@@ -1,4 +1,6 @@
-package com.example.ceban
+package com.example.ceban.utils
+
+import com.example.ceban.core.model.Assignment
 
 object AssignmentsData {
     private val assignmentId = arrayOf(
@@ -47,14 +49,14 @@ object AssignmentsData {
 
     fun listData(EXTRA_SUBJECTID: Int): ArrayList<Assignment> {
         val list = arrayListOf<Assignment>()
-        for (position in AssignmentsData.assignmentNames.indices) {
-            if(AssignmentsData.assignmentId[position] == EXTRA_SUBJECTID) {
+        for (position in assignmentNames.indices) {
+            if(assignmentId[position] == EXTRA_SUBJECTID) {
                 val assignment = Assignment()
-                assignment.id = AssignmentsData.assignmentId[position]
-                assignment.subjectId = AssignmentsData.assignmentSubjectId[position]
-                assignment.name = AssignmentsData.assignmentNames[position]
-                assignment.dueDateTime = AssignmentsData.assignmentDueDateTimes[position]
-                assignment.question = AssignmentsData.assignmentQuestions[position]
+                assignment.id = assignmentId[position]
+                assignment.subjectId = assignmentSubjectId[position]
+                assignment.name = assignmentNames[position]
+                assignment.dueDateTime = assignmentDueDateTimes[position]
+                assignment.question = assignmentQuestions[position]
                 list.add(assignment)
             }
         }

@@ -10,6 +10,7 @@
 
     <TextView
         android:id="@+id/tv_assignment_detail_name"
+        style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/assignment_name"
@@ -31,39 +32,63 @@
 
         <TextView
             android:id="@+id/tv_assignment_detail_duedatetime"
+            style="@style/Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/datetime" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/assignment_bg"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_assignment_detail_question"
+            style="@style/Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/question" />
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/tv_assignment_detail_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/question" />
+        android:text="Foto Jawaban Saya"
+        android:textSize="18sp"
+        style="@style/Title"
+        android:textStyle="bold" />
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="18sp"-->
-<!--        android:text="Daftar Siswa yang Terdaftar" />-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_assignment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_file"
+        tools:itemCount="1"
+        />
 
-        <Button
-            android:id="@+id/btn_upload_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_answer"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/btn_primary_bg"
+        android:text="@string/kirim"
+        android:textColor="#FFFFFF" />
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv_assignment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        tools:listitem="@layout/item_cardview_student_list" />-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_upload_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/btn_secondary_bg"
+        android:text="@string/upload_answer"
+        android:textColor="?attr/colorPrimary" />
+
+
 </LinearLayout>

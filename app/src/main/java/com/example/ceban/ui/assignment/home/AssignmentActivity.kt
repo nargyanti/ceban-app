@@ -1,10 +1,12 @@
-package com.example.ceban
+package com.example.ceban.ui.assignment.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ceban.core.model.Assignment
+import com.example.ceban.utils.AssignmentsData
+import com.example.ceban.R
 
 class AssignmentActivity : AppCompatActivity() {
 

@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/drawable/assignment_bg.xml" value="0.3828125" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/drawable/border.xml" value="0.3828125" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/drawable/btn_primary_bg.xml" value="0.3828125" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/drawable/btn_secondary_bg.xml" value="0.3828125" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/activity_assignment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/activity_assignment_detail.xml" value="0.33" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/activity_main.xml" value="0.5659163987138264" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/activity_student_answer.xml" value="1.0" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/assignment_file_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_cardview_assignment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_cardview_student_list.xml" value="0.5236051502145923" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_cardview_subject.xml" value="0.33" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_file.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

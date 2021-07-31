@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ceban">
-        <activity android:name=".StudentAnswerActivity"></activity>
-        <activity android:name=".AssignmentDetailActivity" />
-        <activity android:name=".AssignmentActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.studentanswer.StudentAnswerActivity"></activity>
+        <activity android:name=".ui.assignment.detail.AssignmentDetailActivity" />
+        <activity android:name=".ui.assignment.home.AssignmentActivity" />
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

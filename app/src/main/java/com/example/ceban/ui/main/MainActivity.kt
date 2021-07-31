@@ -1,9 +1,12 @@
-package com.example.ceban
+package com.example.ceban.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ceban.R
+import com.example.ceban.core.model.Subject
+import com.example.ceban.utils.SubjectsData
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {

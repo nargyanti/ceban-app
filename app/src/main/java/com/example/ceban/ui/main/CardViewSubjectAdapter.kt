@@ -1,4 +1,4 @@
-package com.example.ceban
+package com.example.ceban.ui.main
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ceban.R
+import com.example.ceban.core.model.Subject
+import com.example.ceban.ui.assignment.home.AssignmentActivity
 
 class CardViewSubjectAdapter(private val listSubject: ArrayList<Subject>) :
     RecyclerView.Adapter<CardViewSubjectAdapter.CardViewViewHolder>() {
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     class CardViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvName: TextView = itemView.findViewById(R.id.tv_subject_name)
@@ -51,10 +48,6 @@ class CardViewSubjectAdapter(private val listSubject: ArrayList<Subject>) :
 
     override fun getItemCount(): Int {
         return listSubject.size
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: Subject)
     }
 
 }

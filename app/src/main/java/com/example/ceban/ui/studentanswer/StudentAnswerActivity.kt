@@ -1,9 +1,10 @@
-package com.example.ceban
+package com.example.ceban.ui.studentanswer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
+import com.example.ceban.R
+import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
 
 class StudentAnswerActivity : AppCompatActivity() {
     companion object {
