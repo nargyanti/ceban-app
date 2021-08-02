@@ -40,7 +40,7 @@
         android:layout_marginHorizontal="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_file"
         tools:itemCount="1"
         tools:listitem="@layout/item_file" />
 
@@ -48,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:id="@+id/btn_submit"
         android:background="@drawable/btn_primary_bg"
         android:fontFamily="@font/nunito_regular"
         android:text="Selesai"
@@ -59,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rv_assignment" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_add_file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tambahkan File"
