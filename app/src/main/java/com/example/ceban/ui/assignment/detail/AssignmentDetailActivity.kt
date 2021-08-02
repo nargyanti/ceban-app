@@ -16,6 +16,7 @@ import com.example.ceban.R
 import com.example.ceban.core.model.Student
 import com.example.ceban.databinding.ActivityAssignmentDetailBinding
 import com.example.ceban.databinding.AssignmentFileDialogBinding
+import com.example.ceban.utils.Attachment
 import java.io.File
 import java.io.FileOutputStream
 
@@ -33,8 +34,9 @@ class AssignmentDetailActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityAssignmentDetailBinding
-    private var fileList = ArrayList<File>()
+    private var fileListToAdd = ArrayList<Attachment>()
     private lateinit var viewModel: AssignmentDetailViewModel
+    private lateinit var attachmentToAddAdapter: AttachmentToAddAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,10 +81,18 @@ class AssignmentDetailActivity : AppCompatActivity() {
             val intent = Intent.createChooser(chooseFile, "Choose a File")
             startActivityForResult(intent, REQUEST_CODE)
         }
-        addFileBinding.btnSubmit.setOnClickListener {  }
+
+        addFileBinding.rvAssignment.layoutManager = LinearLayoutManager(this)
+        attachmentToAddAdapter = AttachmentToAddAdapter()
+        addFileBinding.rvAssignment.adapter = attachmentToAddAdapter
+        attachmentToAddAdapter.setData(fileListToAdd)
 
         builder.setCancelable(true)
         val alertDialog = builder.create()
+        addFileBinding.btnSubmit.setOnClickListener {
+            viewModel.setFileList(fileListToAdd)
+            alertDialog.cancel()
+        }
         alertDialog.show()
     }
 
@@ -93,19 +103,22 @@ class AssignmentDetailActivity : AppCompatActivity() {
             if (uri != null) {
                 Log.d("GetFile", "Path : ${uri.path}")
                 var inputStream = contentResolver.openInputStream(uri)
-                var file = File("3.jpg")
+                var file = File(File(filesDir, "photos"), "3.jpg")
+                if (file.exists()) file.delete() else file.parentFile.mkdirs()
                 var outputStream = FileOutputStream(file)
                 if (inputStream != null) {
-//                    FileUtils.copy(inputStream, outputStream)
+                    val buf = ByteArray(8192)
+                    var length: Int
+                    while (inputStream.read(buf).also { length = it } > 0) {
+                        outputStream.write(buf, 0, length)
+                    }
                 }
-//                val metaCursor = contentResolver.query(uri, arrayOf( MediaStore.Images.Media.DATA ), null, null, null)?.use { cursor ->
-//                    if (!cursor.moveToFirst()) return@use null
-//
-//                    val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-//                    val s = cursor.getString(columnIndex)
-//
-//                    Log.d("GetFile", "Name : $s")
-//                }
+
+                Log.d("Get File", "File name: ${file.name}")
+
+                val attachment = Attachment(file.name, file)
+                fileListToAdd.add(attachment)
+                attachmentToAddAdapter.setData(fileListToAdd)
             }
 
         }
