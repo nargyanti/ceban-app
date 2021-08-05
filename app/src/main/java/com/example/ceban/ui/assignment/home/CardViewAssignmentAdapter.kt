@@ -9,17 +9,13 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
 import com.example.ceban.core.model.Assignment
+import com.example.ceban.core.model.Student
 import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
+import com.example.ceban.ui.studentanswer.StudentAnswerActivity
 
 class CardViewAssignmentAdapter(
     private val listAssignment: ArrayList<Assignment>) :
     RecyclerView.Adapter<CardViewAssignmentAdapter.CardViewViewHolder>() {
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     class CardViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvDueDateTime: TextView = itemView.findViewById(R.id.tv_assignment_duedatetime)
@@ -39,14 +35,19 @@ class CardViewAssignmentAdapter(
         holder.tvDueDateTime.text = assignment.dueDateTime
 
         holder.cardAssignment.setOnClickListener {
-            val context = holder.cardAssignment.context
-            val moveToDetailIntent = Intent(context, AssignmentDetailActivity::class.java)
-            moveToDetailIntent.putExtra(AssignmentDetailActivity.EXTRA_ID, assignment.id)
-            moveToDetailIntent.putExtra(AssignmentDetailActivity.EXTRA_NAME, assignment.name)
-            moveToDetailIntent.putExtra(AssignmentDetailActivity.EXTRA_QUESTION, assignment.question)
-            moveToDetailIntent.putExtra(AssignmentDetailActivity.EXTRA_DUEDATETIME, assignment.dueDateTime)
-            context.startActivity(moveToDetailIntent)
-        }
+//            TODO("cek apakah soal sudah dikerjakan atau belum. jika ya pindah ke halaman detail, jika belum pergi ke add jawaban")
+            if(assignment.id % 2 == 1) {
+                val context = holder.cardAssignment.context
+                val moveToDetailIntent = Intent(context, AssignmentDetailActivity::class.java)
+                moveToDetailIntent.putExtra(AssignmentDetailActivity.EXTRA_ASSIGNMENT, assignment)
+                context.startActivity(moveToDetailIntent)
+            }else{
+                val context = holder.cardAssignment.context
+                val moveToStudentAnswerIntent = Intent(context, StudentAnswerActivity::class.java)
+                moveToStudentAnswerIntent.putExtra(StudentAnswerActivity.EXTRA_ASSIGNMENT, assignment)
+                context.startActivity(moveToStudentAnswerIntent)
+            }
+    }
     }
 
     override fun getItemCount(): Int {

@@ -3,28 +3,48 @@ package com.example.ceban.ui.studentanswer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ceban.R
+import com.example.ceban.core.model.Assignment
+import com.example.ceban.databinding.ActivityStudentAnswerBinding
 import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
+import com.example.ceban.utils.Attachment
 
 class StudentAnswerActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_ID = "extra_id"
-        const val EXTRA_NAME = "extra_name"
+        const val EXTRA_ASSIGNMENT = "extra_assignment"
     }
+
+    private lateinit var binding: ActivityStudentAnswerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_student_answer)
-
-        val tvName: TextView = findViewById(R.id.tv_student_answer_name)
-        val tvNo: TextView = findViewById(R.id.tv_student_answer_no)
-        val tvResult: TextView = findViewById(R.id.tv_student_answer_result)
-
-        val id = intent.getIntExtra(AssignmentDetailActivity.EXTRA_ID, 0)
-        val name = intent.getStringExtra(AssignmentDetailActivity.EXTRA_NAME)
-
-        tvName.text = name
+        binding = ActivityStudentAnswerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.title = "Jawaban Siswa"
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val assignment = intent.getParcelableExtra<Assignment>(EXTRA_ASSIGNMENT)
+
+        if (assignment != null) {
+            binding.tvAssignmentDetailName.text = assignment.name
+            binding.tvAssignmentDetailDuedatetime.text = assignment.dueDateTime
+            binding.tvAssignmentDetailQuestion.text = assignment.question
+        }
+
+        val adapter = StudentAnswerAdapter()
+        binding.rvAssignment.adapter = adapter
+        binding.rvAssignment.layoutManager = LinearLayoutManager(this)
+
+        val attachment = listOf(
+            Attachment("Jawaban 2", null, "https://placeimg.com/640/480/any"),
+            Attachment("Jawaban 2", null, "https://placeimg.com/640/480/any"),
+        )
+        adapter.setData(attachment)
+
+
     }
 }

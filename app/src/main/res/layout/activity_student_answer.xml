@@ -1,95 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <TextView
+        android:id="@+id/tv_assignment_detail_name"
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/assignment_name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:id="@+id/tv_student_answer_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/student_name"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_student_answer_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No. Absen : 1" />
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/img_student_answer_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="210dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/calendar" />
+
+        <TextView
+            android:id="@+id/tv_assignment_detail_duedatetime"
+            style="@style/Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:src="@drawable/answer" />
-
-        <Button
-            android:id="@+id/btn_upload_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ubah Jawaban Siswa"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Jawaban"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/tv_student_answer_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:padding="10dp"
-            android:text="@string/student_answer"
-            android:background="@drawable/border"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:id="@+id/tv_student_answer_score_label"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:text="Nilai:"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/edt_student_answer_score"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_toEndOf="@+id/tv_student_answer_score_label"
-                android:inputType="number"
-                android:lines="1"/>
-        </RelativeLayout>
-
-
-        <Button
-            android:id="@+id/btn_student_answer_submit_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/submit_score"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            tools:text="@string/datetime" />
     </LinearLayout>
-</ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/assignment_bg"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_assignment_detail_question"
+            style="@style/Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/question" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Foto Jawaban Saya"
+        android:textSize="18sp"
+        style="@style/Title"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_assignment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_student_answer"
+        tools:itemCount="2"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_primary_bg"
+        android:text="@string/edit"
+        style="@style/Body"
+        android:textColor="#FFFFFF" />
+
+
+</LinearLayout>

@@ -34,13 +34,13 @@ class CardViewStudentListAdapter(private val listStudent: ArrayList<Student>) :
     override fun onBindViewHolder(holder: CardViewViewHolder, position: Int) {
         val student = listStudent[position]
         holder.tvName.text = student.name
-        holder.cardStudent.setOnClickListener {
-            val context = holder.cardStudent.context
-            val moveToDetailIntent = Intent(context, StudentAnswerActivity::class.java)
-            moveToDetailIntent.putExtra(StudentAnswerActivity.EXTRA_ID, student.id)
-            moveToDetailIntent.putExtra(StudentAnswerActivity.EXTRA_NAME, student.name)
-            context.startActivity(moveToDetailIntent)
-        }
+//        holder.cardStudent.setOnClickListener {
+//            val context = holder.cardStudent.context
+//            val moveToDetailIntent = Intent(context, StudentAnswerActivity::class.java)
+//            moveToDetailIntent.putExtra(StudentAnswerActivity.EXTRA_ID, student.id)
+//            moveToDetailIntent.putExtra(StudentAnswerActivity.EXTRA_NAME, student.name)
+//            context.startActivity(moveToDetailIntent)
+//        }
     }
 
     override fun getItemCount(): Int {

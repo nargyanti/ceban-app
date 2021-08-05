@@ -13,23 +13,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
+import com.example.ceban.core.model.Assignment
 import com.example.ceban.core.model.Student
 import com.example.ceban.databinding.ActivityAssignmentDetailBinding
 import com.example.ceban.databinding.AssignmentFileDialogBinding
+import com.example.ceban.ui.studentanswer.StudentAnswerActivity
 import com.example.ceban.utils.Attachment
 import java.io.File
 import java.io.FileOutputStream
 
 class AssignmentDetailActivity : AppCompatActivity() {
-
-    private lateinit var rvStudentList: RecyclerView
-    private var list: ArrayList<Student> = arrayListOf()
-
     companion object {
-        const val EXTRA_ID = "extra_id"
-        const val EXTRA_DUEDATETIME = "extra_duedatetime"
-        const val EXTRA_QUESTION = "extra_question"
-        const val EXTRA_NAME = "extra_name"
+        const val EXTRA_ASSIGNMENT = "extra_assignment"
         const val REQUEST_CODE = 1
     }
 
@@ -41,21 +36,22 @@ class AssignmentDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAssignmentDetailBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[AssignmentDetailViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[AssignmentDetailViewModel::class.java]
         setContentView(binding.root)
         supportActionBar?.title = "Detail Tugas"
     }
 
     override fun onStart() {
         super.onStart()
-        val id = intent.getIntExtra(EXTRA_ID, 0)
-        val name = intent.getStringExtra(EXTRA_NAME)
-        val dueDateTime = intent.getStringExtra(EXTRA_DUEDATETIME)
-        val question = intent.getStringExtra(EXTRA_QUESTION)
-
-        binding.tvAssignmentDetailName.text = name
-        binding.tvAssignmentDetailDuedatetime.text = dueDateTime
-        binding.tvAssignmentDetailQuestion.text = question
+        val assignment = intent.getParcelableExtra<Assignment>(EXTRA_ASSIGNMENT)
+        if(assignment != null) {
+            binding.tvAssignmentDetailName.text = assignment.name
+            binding.tvAssignmentDetailDuedatetime.text = assignment.dueDateTime
+            binding.tvAssignmentDetailQuestion.text = assignment.question
+        }
 
         binding.rvAssignment.layoutManager = LinearLayoutManager(this)
         val adapter = FileListAdapter()
@@ -64,6 +60,12 @@ class AssignmentDetailActivity : AppCompatActivity() {
             adapter.setData(it)
         })
 
+        binding.btnSubmit.setOnClickListener {
+            startActivity(Intent(this, StudentAnswerActivity::class.java).apply {
+                putExtra(StudentAnswerActivity.EXTRA_ASSIGNMENT, assignment)
+            })
+            finish()
+        }
 
         binding.btnUploadAnswer.setOnClickListener {
             openAddFileDialog()
@@ -72,7 +74,8 @@ class AssignmentDetailActivity : AppCompatActivity() {
 
     private fun openAddFileDialog() {
         val builder = AlertDialog.Builder(this)
-        val addFileBinding: AssignmentFileDialogBinding = AssignmentFileDialogBinding.inflate(layoutInflater)
+        val addFileBinding: AssignmentFileDialogBinding =
+            AssignmentFileDialogBinding.inflate(layoutInflater)
         builder.setView(addFileBinding.root)
 
         addFileBinding.btnAddFile.setOnClickListener {
@@ -120,26 +123,8 @@ class AssignmentDetailActivity : AppCompatActivity() {
                 fileListToAdd.add(attachment)
                 attachmentToAddAdapter.setData(fileListToAdd)
             }
-
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
