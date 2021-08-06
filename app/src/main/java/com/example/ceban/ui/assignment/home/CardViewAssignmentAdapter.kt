@@ -9,9 +9,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
 import com.example.ceban.core.model.Assignment
-import com.example.ceban.core.model.Student
 import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
-import com.example.ceban.ui.studentanswer.StudentAnswerActivity
+import com.example.ceban.ui.studentanswer.home.StudentAnswerActivity
 
 class CardViewAssignmentAdapter(
     private val listAssignment: ArrayList<Assignment>) :

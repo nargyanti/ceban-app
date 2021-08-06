@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.studentanswer.StudentAnswerActivity" />
+        <activity android:name=".ui.studentanswer.home.StudentAnswerActivity" />
         <activity android:name=".ui.assignment.detail.AssignmentDetailActivity" />
         <activity android:name=".ui.assignment.home.AssignmentActivity" />
         <activity android:name=".ui.main.MainActivity"></activity>

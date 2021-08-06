@@ -17,12 +17,14 @@
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/activity_student_answer.xml" value="0.33" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/activity_student_answer_edit.xml" value="0.36666666666666664" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/assignment_file_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/fragment_siswa_assignment_detail_activity.xml" value="0.3625" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_attachment_to_add.xml" value="0.33" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_cardview_assignment.xml" value="0.36666666666666664" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_cardview_student_list.xml" value="0.5236051502145923" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_cardview_subject.xml" value="0.33" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_file.xml" value="0.33" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_student_answer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/layout/item_student_answer_edit.xml" value="0.5" />
         <entry key="..\:/Mine/Ngoding/AndroidProjects/ceban-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3828125" />
       </map>
     </option>

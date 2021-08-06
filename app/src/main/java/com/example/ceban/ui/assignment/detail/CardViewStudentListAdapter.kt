@@ -1,6 +1,5 @@
 package com.example.ceban.ui.assignment.detail
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
 import com.example.ceban.core.model.Student
-import com.example.ceban.ui.studentanswer.StudentAnswerActivity
 
 class CardViewStudentListAdapter(private val listStudent: ArrayList<Student>) :
     RecyclerView.Adapter<CardViewStudentListAdapter.CardViewViewHolder>() {

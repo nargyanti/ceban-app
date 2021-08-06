@@ -55,40 +55,11 @@
             android:text="@string/question" />
     </LinearLayout>
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Foto Jawaban Saya"
-        android:textSize="18sp"
-        style="@style/Title"
-        android:textStyle="bold" />
+        android:id="@+id/container"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_assignment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_file"
-        tools:itemCount="1"
-        />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:background="@drawable/btn_primary_bg"
-        android:text="@string/kirim"
-        android:textColor="#FFFFFF" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_upload_answer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:background="@drawable/btn_secondary_bg"
-        android:text="@string/upload_answer"
-        android:textColor="?attr/colorPrimary" />
 
 
 </LinearLayout>
