@@ -11,24 +11,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ceban.R
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.AssignmentFileDialogBinding
-import com.example.ceban.databinding.FragmentSiswaAssignmentDetailActivityBinding
+import com.example.ceban.databinding.FragmentSiswaAssignmentDetailBinding
 import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
 import com.example.ceban.ui.assignment.detail.AssignmentDetailViewModel
-import com.example.ceban.ui.assignment.detail.AttachmentToAddAdapter
-import com.example.ceban.ui.assignment.detail.FileListAdapter
-import com.example.ceban.ui.studentanswer.home.StudentAnswerActivity
+import com.example.ceban.ui.assignment.detail.siswa.submission.home.SubmissionActivity
 import com.example.ceban.utils.Attachment
 import java.io.File
 import java.io.FileOutputStream
 
 private const val EXTRA_ASSIGNMENT = "extra_assignment"
-class SiswaAssignmentDetailActivity : Fragment() {
+class SiswaAssignmentDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var assignment: Assignment? = null
-    private lateinit var binding: FragmentSiswaAssignmentDetailActivityBinding
+    private lateinit var binding: FragmentSiswaAssignmentDetailBinding
     private var fileListToAdd = ArrayList<Attachment>()
     private lateinit var attachmentToAddAdapter: AttachmentToAddAdapter
     private lateinit var viewModel: AssignmentDetailViewModel
@@ -44,7 +41,7 @@ class SiswaAssignmentDetailActivity : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSiswaAssignmentDetailActivityBinding.inflate(inflater, container, false)
+        binding = FragmentSiswaAssignmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,8 +58,8 @@ class SiswaAssignmentDetailActivity : Fragment() {
                 })
 
                 binding.btnSubmit.setOnClickListener {
-                    startActivity(Intent(activity, StudentAnswerActivity::class.java).apply {
-                        putExtra(StudentAnswerActivity.EXTRA_ASSIGNMENT, assignment)
+                    startActivity(Intent(activity, SubmissionActivity::class.java).apply {
+                        putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
                     })
                     activity?.finish()
                 }
@@ -131,7 +128,7 @@ class SiswaAssignmentDetailActivity : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: Assignment) =
-            SiswaAssignmentDetailActivity().apply {
+            SiswaAssignmentDetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(EXTRA_ASSIGNMENT, param1)
                 }

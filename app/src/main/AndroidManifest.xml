@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ceban">
         <activity
-            android:name=".ui.studentanswer.edit.StudentAnswerEditActivity"
+            android:name=".ui.assignment.detail.guru.studentanswer.StudentAnswerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.assignment.detail.siswa.submission.edit.SubmissionEditActivity"
             android:exported="true" />
         <activity
             android:name=".ui.login.LoginActivity"
@@ -25,10 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.studentanswer.home.StudentAnswerActivity" />
+        <activity android:name=".ui.assignment.detail.siswa.submission.home.SubmissionActivity" />
         <activity android:name=".ui.assignment.detail.AssignmentDetailActivity" />
         <activity android:name=".ui.assignment.home.AssignmentActivity" />
-        <activity android:name=".ui.main.MainActivity"></activity>
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>

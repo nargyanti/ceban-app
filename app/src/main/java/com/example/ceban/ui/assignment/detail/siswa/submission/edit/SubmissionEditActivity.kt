@@ -1,4 +1,4 @@
-package com.example.ceban.ui.studentanswer.edit
+package com.example.ceban.ui.assignment.detail.siswa.submission.edit
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,35 +6,33 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ceban.R
-import com.example.ceban.databinding.ActivityStudentAnswerEditBinding
+import com.example.ceban.databinding.ActivitySubmissionEditBinding
 import com.example.ceban.databinding.AssignmentFileDialogBinding
 import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
-import com.example.ceban.ui.assignment.detail.AttachmentToAddAdapter
-import com.example.ceban.ui.studentanswer.home.StudentAnswerAdapter
+import com.example.ceban.ui.assignment.detail.siswa.AttachmentToAddAdapter
 import com.example.ceban.utils.Attachment
 import java.io.File
 import java.io.FileOutputStream
 
-class StudentAnswerEditActivity : AppCompatActivity() {
+class SubmissionEditActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ASSIGNMENT = "extra_assignment"
     }
 
-    private lateinit var binding: ActivityStudentAnswerEditBinding
+    private lateinit var binding: ActivitySubmissionEditBinding
     private var fileListToAdd = ArrayList<Attachment>()
     private lateinit var attachmentToAddAdapter: AttachmentToAddAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityStudentAnswerEditBinding.inflate(layoutInflater)
+        binding = ActivitySubmissionEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
     override fun onStart() {
         super.onStart()
-        val adapter = StudentAnswerEditAdapter()
+        val adapter = SubmissionEditAdapter()
         binding.rvAnswerEdit.adapter = adapter
         binding.rvAnswerEdit.layoutManager = LinearLayoutManager(this)
 

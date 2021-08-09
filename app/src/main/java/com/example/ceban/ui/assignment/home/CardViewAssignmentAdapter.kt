@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
-import com.example.ceban.ui.studentanswer.home.StudentAnswerActivity
+import com.example.ceban.ui.assignment.detail.siswa.submission.home.SubmissionActivity
 
 class CardViewAssignmentAdapter(
     private val listAssignment: ArrayList<Assignment>) :
@@ -42,8 +42,8 @@ class CardViewAssignmentAdapter(
                 context.startActivity(moveToDetailIntent)
             }else{
                 val context = holder.cardAssignment.context
-                val moveToStudentAnswerIntent = Intent(context, StudentAnswerActivity::class.java)
-                moveToStudentAnswerIntent.putExtra(StudentAnswerActivity.EXTRA_ASSIGNMENT, assignment)
+                val moveToStudentAnswerIntent = Intent(context, SubmissionActivity::class.java)
+                moveToStudentAnswerIntent.putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
                 context.startActivity(moveToStudentAnswerIntent)
             }
     }

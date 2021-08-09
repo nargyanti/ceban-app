@@ -1,14 +1,13 @@
-package com.example.ceban.ui.studentanswer.edit
+package com.example.ceban.ui.assignment.detail.siswa.submission.edit
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ceban.databinding.ItemStudentAnswerEditBinding
 import com.example.ceban.utils.Attachment
 
-class StudentAnswerEditAdapter: RecyclerView.Adapter<StudentAnswerEditAdapter.StudentViewHolder>() {
+class SubmissionEditAdapter: RecyclerView.Adapter<SubmissionEditAdapter.StudentViewHolder>() {
     val attachmentList = ArrayList<Attachment>()
 
     fun setData(data: List<Attachment>) {

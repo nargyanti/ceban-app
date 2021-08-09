@@ -1,4 +1,4 @@
-package com.example.ceban.ui.studentanswer.home
+package com.example.ceban.ui.assignment.detail.siswa.submission.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.ceban.databinding.ItemStudentAnswerBinding
 import com.example.ceban.utils.Attachment
 
-class StudentAnswerAdapter: RecyclerView.Adapter<StudentAnswerAdapter.StudentAnswerViewHolder>() {
+class SubmissionAdapter: RecyclerView.Adapter<SubmissionAdapter.StudentAnswerViewHolder>() {
     val attachmentList = ArrayList<Attachment>()
 
     fun setData(data: List<Attachment>) {
