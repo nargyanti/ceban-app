@@ -19,6 +19,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         binding.btnLogin.setOnClickListener {
+            val username = binding.edtUsername.text
+            val password = binding.edtPassword.text
+
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
