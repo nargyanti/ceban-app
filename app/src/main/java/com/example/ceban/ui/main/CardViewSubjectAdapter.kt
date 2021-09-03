@@ -34,11 +34,6 @@ class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>
     override fun onBindViewHolder(holder: CardViewViewHolder, position: Int) {
         val subject = listSubject[position]
         holder.tvName.text = subject.name
-        holder.tvClass.text = subject.className
-        holder.tvPassword.text = subject.password
-        holder.tvTeacher.text = subject.teacher
-        holder.tvAssignmentAmount.text = "${subject.assignmentAmount} Tugas"
-        holder.tvStudentAmount.text = "${subject.studentAmount} Orang"
         holder.cardSubject.setOnClickListener {
             val context = holder.cardSubject.context
             val moveToDetailIntent = Intent(context, AssignmentActivity::class.java)
