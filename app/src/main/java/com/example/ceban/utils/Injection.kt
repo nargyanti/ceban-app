@@ -25,7 +25,7 @@ object Injection {
 
     private val retrofit = Retrofit.Builder()
         .client(client)
-        .baseUrl("http://3b30-125-166-5-153.ngrok.io/")
+        .baseUrl("http://6881-125-166-5-210.ngrok.io")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

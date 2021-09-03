@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.ceban.core.datasource.remote.api.ClassesService
-import com.example.ceban.core.datasource.remote.responses.ClassesResponse
+import com.example.ceban.core.datasource.remote.responses.ApiResponse
+import com.example.ceban.core.datasource.remote.responses.SubjectsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,23 +21,25 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
         }
     }
 
-    fun getAll(): LiveData<ClassesResponse> {
-        val liveData = MutableLiveData<ClassesResponse>()
-        classesService.getAllSubjects().enqueue(object : Callback<ClassesResponse> {
+    fun getAll(id: Int): LiveData<ApiResponse<SubjectsResponse>> {
+        val liveData = MutableLiveData<ApiResponse<SubjectsResponse>>()
+        classesService.getAllSubjects(id).enqueue(object : Callback<SubjectsResponse> {
             override fun onResponse(
-                call: Call<ClassesResponse>,
-                response: Response<ClassesResponse>
+                call: Call<SubjectsResponse>,
+                response: Response<SubjectsResponse>
             ) {
                 if(response.isSuccessful) {
                     val data = response.body()
-                    if(data != null) {
-                        liveData.postValue(data)
+                    if (data != null) {
+                        liveData.postValue(ApiResponse.success(data))
                     }
+                }else{
+                    liveData.postValue(ApiResponse.error("Error: ${response.message()}", SubjectsResponse()))
                 }
             }
 
-            override fun onFailure(call: Call<ClassesResponse>, t: Throwable) {
-                Log.e("ClassesApi", "Error: ${t.message}")
+            override fun onFailure(call: Call<SubjectsResponse>, t: Throwable) {
+                liveData.postValue(ApiResponse.error("Error: ${t.message}", SubjectsResponse()))
             }
 
         })

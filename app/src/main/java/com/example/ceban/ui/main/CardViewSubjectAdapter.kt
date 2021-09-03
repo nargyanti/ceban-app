@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
+import com.example.ceban.core.datasource.remote.responses.SubjectsResponseItem
 import com.example.ceban.core.model.Subject
 import com.example.ceban.ui.assignment.home.AssignmentActivity
 
-class CardViewSubjectAdapter(private val listSubject: ArrayList<Subject>) :
+class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>) :
     RecyclerView.Adapter<CardViewSubjectAdapter.CardViewViewHolder>() {
 
     class CardViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

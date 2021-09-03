@@ -10,5 +10,5 @@ class ClassesRepository(private val classesRemoteDataSource: ClassesRemoteDataSo
         }
     }
 
-    fun getAllClasses() = classesRemoteDataSource.getAll()
+    fun getAllSubject(id: Int) = classesRemoteDataSource.getAll(id)
 }
