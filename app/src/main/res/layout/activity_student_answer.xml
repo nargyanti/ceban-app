@@ -58,16 +58,14 @@
             android:layout_marginTop="40dp"
             />
 
-        <com.synnapps.carouselview.CarouselView
-            android:id="@+id/crs_student_answer"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_student_answer"
             android:layout_width="match_parent"
-            android:layout_height="366dp"
-            app:fillColor="#FFFFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="360dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_absen"
-            app:pageColor="#00000000"
-            app:strokeColor="#FF777777" />
+            android:layout_marginTop="20dp"
+            tools:layout_editor_absoluteX="20dp" />
+
 
         <TextView
             android:id="@+id/textView7"
@@ -75,9 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hasil Scan Jawaban Siswa"
-            android:textSize="18sp"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/crs_student_answer"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/vp_student_answer"
             tools:layout_editor_absoluteX="20dp" />
 
         <LinearLayout
@@ -94,7 +92,9 @@
                 style="@style/Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="@string/student_answer" />
+                tools:text="@string/student_answer"
+                android:id="@+id/tv_student_answer"
+                />
         </LinearLayout>
 
 

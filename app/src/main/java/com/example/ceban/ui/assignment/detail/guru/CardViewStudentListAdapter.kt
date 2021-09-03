@@ -1,5 +1,7 @@
 package com.example.ceban.ui.assignment.detail.guru
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,19 +9,27 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
+import com.example.ceban.core.model.Assignment
 import com.example.ceban.core.model.Student
 import com.example.ceban.databinding.ItemCardviewStudentListBinding
+import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerActivity
 import kotlin.random.Random
 
-class CardViewStudentListAdapter(private val listStudent: ArrayList<Student>) :
+class CardViewStudentListAdapter(private val assignment: Assignment?, private val listStudent: ArrayList<Student>, private val context: Context) :
     RecyclerView.Adapter<CardViewStudentListAdapter.CardViewViewHolder>() {
 
-    class CardViewViewHolder(private val binding: ItemCardviewStudentListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CardViewViewHolder(private val binding: ItemCardviewStudentListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(student: Student) {
             binding.tvAssignmentStudentName.text = student.name
             val nilai = Random.nextInt(16, 20) * 5
             binding.tvNilai.text = "Nilai : ${nilai}"
 
+            binding.btnCheckStudentAnswer.setOnClickListener {
+                val intent = Intent(context , StudentAnswerActivity::class.java)
+                intent.putExtra(StudentAnswerActivity.EXTRA_ASSIGNMENT, assignment)
+                intent.putExtra(StudentAnswerActivity.EXTRA_STUDENT, student)
+                context.startActivity(intent)
+            }
         }
     }
 

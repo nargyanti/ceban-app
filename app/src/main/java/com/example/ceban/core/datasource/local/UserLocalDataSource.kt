@@ -1,7 +1,7 @@
 package com.example.ceban.core.datasource.local
 
 import com.example.ceban.core.datasource.local.preferences.UserPreferences
-import com.example.ceban.core.datasource.remote.responses.UserResponse
+import com.example.ceban.core.datasource.local.entity.UserEntity
 
 class UserLocalDataSource private constructor(private val userPreferences: UserPreferences){
     companion object {
@@ -15,11 +15,11 @@ class UserLocalDataSource private constructor(private val userPreferences: UserP
         }
     }
 
-    fun saveUser(userResponse: UserResponse) {
-        userPreferences.setUser(userResponse)
+    fun saveUser(userEntity: UserEntity) {
+        userPreferences.setUser(userEntity)
     }
 
-    fun getUser(): UserResponse {
+    fun getUser(): UserEntity {
         return userPreferences.getUser()
     }
 }

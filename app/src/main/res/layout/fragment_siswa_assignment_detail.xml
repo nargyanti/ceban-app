@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.assignment.detail.siswa.SiswaAssignmentDetailActivity">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -19,9 +18,8 @@
         android:id="@+id/rv_assignment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_file"
         tools:itemCount="1"
-        />
+        tools:listitem="@layout/item_file" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_submit"

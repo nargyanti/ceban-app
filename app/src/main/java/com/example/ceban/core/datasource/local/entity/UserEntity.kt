@@ -1,11 +1,11 @@
-package com.example.ceban.core.datasource.remote.responses
+package com.example.ceban.core.datasource.local.entity
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class UserResponse(
+data class UserEntity(
 
 	@field:SerializedName("password")
 	var password: String? = null,

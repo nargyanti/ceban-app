@@ -2,7 +2,7 @@ package com.example.ceban.core.datasource.local.preferences
 
 import android.content.Context
 import androidx.core.content.edit
-import com.example.ceban.core.datasource.remote.responses.UserResponse
+import com.example.ceban.core.datasource.local.entity.UserEntity
 
 class UserPreferences(context: Context) {
     companion object {
@@ -18,20 +18,20 @@ class UserPreferences(context: Context) {
 
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    fun setUser(userResponse: UserResponse) {
+    fun setUser(userEntity: UserEntity) {
         preferences.edit {
-            putString(NAME, userResponse.name)
-            putInt(ID, userResponse.id ?: 0)
-            putString(USERNAME, userResponse.username)
-            putString(PASSWORD, userResponse.password)
-            putString(TELP, userResponse.telp)
-            putString(LEVEL, userResponse.level)
-            putString(ENTRY_YEAR, userResponse.entryYear)
+            putString(NAME, userEntity.name)
+            putInt(ID, userEntity.id ?: 0)
+            putString(USERNAME, userEntity.username)
+            putString(PASSWORD, userEntity.password)
+            putString(TELP, userEntity.telp)
+            putString(LEVEL, userEntity.level)
+            putString(ENTRY_YEAR, userEntity.entryYear)
         }
     }
 
-    fun getUser(): UserResponse {
-        val user = UserResponse()
+    fun getUser(): UserEntity {
+        val user = UserEntity()
         user.name = preferences.getString(NAME, null)
         user.id = preferences.getInt(ID, 0)
         user.username = preferences.getString(USERNAME, null)
