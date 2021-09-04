@@ -9,7 +9,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
 import com.example.ceban.core.datasource.remote.responses.SubjectsResponseItem
-import com.example.ceban.core.model.Subject
 import com.example.ceban.ui.assignment.home.AssignmentActivity
 
 class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>) :
@@ -18,7 +17,6 @@ class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>
     class CardViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvName: TextView = itemView.findViewById(R.id.tv_subject_name)
         var tvClass: TextView = itemView.findViewById(R.id.tv_subject_class)
-        var tvPassword: TextView = itemView.findViewById(R.id.tv_subject_password)
         var tvTeacher: TextView = itemView.findViewById(R.id.tv_subject_teacher)
         var tvAssignmentAmount: TextView = itemView.findViewById(R.id.tv_subject_assignmentAmount)
         var tvStudentAmount: TextView = itemView.findViewById(R.id.tv_subject_studentAmount)
@@ -34,6 +32,9 @@ class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>
     override fun onBindViewHolder(holder: CardViewViewHolder, position: Int) {
         val subject = listSubject[position]
         holder.tvName.text = subject.name
+        holder.tvAssignmentAmount.text = "${subject.assignmentCount.toString()} Tugas"
+        holder.tvTeacher.text = subject.teacherName
+        holder.tvStudentAmount.text = "${subject.studentCount.toString()} Siswa"
         holder.cardSubject.setOnClickListener {
             val context = holder.cardSubject.context
             val moveToDetailIntent = Intent(context, AssignmentActivity::class.java)

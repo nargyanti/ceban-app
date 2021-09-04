@@ -4,8 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.ceban.core.datasource.remote.api.ClassesService
+import com.example.ceban.core.datasource.remote.requests.SubjectRequest
 import com.example.ceban.core.datasource.remote.responses.ApiResponse
-import com.example.ceban.core.datasource.remote.responses.SubjectsResponse
+import com.example.ceban.core.datasource.remote.responses.SubjectsResponseItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,12 +22,12 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
         }
     }
 
-    fun getAll(id: Int): LiveData<ApiResponse<SubjectsResponse>> {
-        val liveData = MutableLiveData<ApiResponse<SubjectsResponse>>()
-        classesService.getAllSubjects(id).enqueue(object : Callback<SubjectsResponse> {
+    fun getAll(id: Int, level: String): LiveData<ApiResponse<List<SubjectsResponseItem>>> {
+        val liveData = MutableLiveData<ApiResponse<List<SubjectsResponseItem>>>()
+        classesService.getAllSubjects(id, level).enqueue(object : Callback<List<SubjectsResponseItem>> {
             override fun onResponse(
-                call: Call<SubjectsResponse>,
-                response: Response<SubjectsResponse>
+                call: Call<List<SubjectsResponseItem>>,
+                response: Response<List<SubjectsResponseItem>>
             ) {
                 if(response.isSuccessful) {
                     val data = response.body()
@@ -34,12 +35,12 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
                         liveData.postValue(ApiResponse.success(data))
                     }
                 }else{
-                    liveData.postValue(ApiResponse.error("Error: ${response.message()}", SubjectsResponse()))
+                    liveData.postValue(ApiResponse.error("Error: ${response.message()}", arrayListOf()))
                 }
             }
 
-            override fun onFailure(call: Call<SubjectsResponse>, t: Throwable) {
-                liveData.postValue(ApiResponse.error("Error: ${t.message}", SubjectsResponse()))
+            override fun onFailure(call: Call<List<SubjectsResponseItem>>, t: Throwable) {
+                liveData.postValue(ApiResponse.error("Error: ${t.message}", arrayListOf()))
             }
 
         })

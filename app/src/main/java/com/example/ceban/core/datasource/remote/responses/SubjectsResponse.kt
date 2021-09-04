@@ -3,14 +3,6 @@ package com.example.ceban.core.datasource.remote.responses
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-
-@Parcelize
-data class SubjectsResponse(
-
-	@field:SerializedName("SubjectsResponse")
-	val subjectsResponse: List<SubjectsResponseItem>? = null
-) : Parcelable
-
 @Parcelize
 data class SubjectsResponseItem(
 
@@ -19,6 +11,9 @@ data class SubjectsResponseItem(
 
 	@field:SerializedName("teacher_name")
 	val teacherName: String? = null,
+
+	@field:SerializedName("student_count")
+	val studentCount: Int? = null,
 
 	@field:SerializedName("teacher_id")
 	val teacherId: Int? = null,

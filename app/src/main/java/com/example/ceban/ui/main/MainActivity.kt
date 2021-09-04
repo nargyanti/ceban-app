@@ -37,24 +37,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRecyclerCardView() {
         viewModel.getUser().observe(this, { user ->
-            user.id?.let {
-                viewModel.getAllClasses(it).observe(this, {
-                    when(it.status) {
-                        StatusResponse.SUCCESS -> {
-                            val list = it.body.subjectsResponse
-                            if (list != null) {
-                                rvSubjects.layoutManager = LinearLayoutManager(this)
-                                val cardViewSubjectAdapter = CardViewSubjectAdapter(list)
-                                rvSubjects.adapter = cardViewSubjectAdapter
-                            }
-                        }
-                        else -> {
-                            Snackbar.make(binding.root, "Terjadi kesalahan", Snackbar.LENGTH_SHORT).show()
-                            Log.e("Login", "Error: ${it.message}")
-                        }
+            viewModel.getAllClasses(user.id, user.level).observe(this, {
+                when(it.status) {
+                    StatusResponse.SUCCESS -> {
+                        val list = it.body
+                        rvSubjects.layoutManager = LinearLayoutManager(this)
+                        val cardViewSubjectAdapter = CardViewSubjectAdapter(list)
+                        rvSubjects.adapter = cardViewSubjectAdapter
                     }
-                })
-            }
+                    else -> {
+                        Snackbar.make(binding.root, "Terjadi kesalahan", Snackbar.LENGTH_SHORT).show()
+                        Log.e("Login", "Error: ${it.message}")
+                    }
+                }
+            })
         })
     }
 }

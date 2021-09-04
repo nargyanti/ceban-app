@@ -37,7 +37,7 @@ class UserPreferences(context: Context) {
         user.username = preferences.getString(USERNAME, null)
         user.password = preferences.getString(PASSWORD, null)
         user.telp = preferences.getString(TELP, null)
-        user.level = preferences.getString(LEVEL, null)
+        user.level = preferences.getString(LEVEL, null)?: ""
         user.entryYear = preferences.getString(ENTRY_YEAR, null)
         return user
     }

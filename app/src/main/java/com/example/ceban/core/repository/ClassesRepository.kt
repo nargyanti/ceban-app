@@ -1,6 +1,7 @@
 package com.example.ceban.core.repository
 
 import com.example.ceban.core.datasource.remote.ClassesRemoteDataSource
+import com.example.ceban.core.datasource.remote.requests.SubjectRequest
 
 class ClassesRepository(private val classesRemoteDataSource: ClassesRemoteDataSource) {
     companion object {
@@ -10,5 +11,5 @@ class ClassesRepository(private val classesRemoteDataSource: ClassesRemoteDataSo
         }
     }
 
-    fun getAllSubject(id: Int) = classesRemoteDataSource.getAll(id)
+    fun getAllSubject(id: Int, level: String) = classesRemoteDataSource.getAll(id, level)
 }

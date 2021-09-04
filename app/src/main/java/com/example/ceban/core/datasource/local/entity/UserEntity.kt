@@ -14,7 +14,7 @@ data class UserEntity(
 	var telp: String? = null,
 
 	@field:SerializedName("level")
-	var level: String? = null,
+	var level: String = "",
 
 	@field:SerializedName("entry_year")
 	var entryYear: String? = null,
@@ -23,7 +23,7 @@ data class UserEntity(
 	var name: String? = null,
 
 	@field:SerializedName("id")
-	var id: Int? = null,
+	var id: Int = 0,
 
 	@field:SerializedName("username")
 	var username: String? = null

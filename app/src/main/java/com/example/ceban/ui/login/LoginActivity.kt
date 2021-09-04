@@ -35,12 +35,12 @@ class LoginActivity : AppCompatActivity() {
                 when(it.status) {
                     StatusResponse.SUCCESS -> {
                         val userEntity = UserEntity(
-                            id = it.body.id,
+                            id = it.body.id?: 0,
                             name = it.body.name,
                             username = it.body.username,
                             password = it.body.password,
                             telp = it.body.telp,
-                            level = it.body.level,
+                            level = it.body.level?: "",
                             entryYear = it.body.entryYear
                         )
                         viewModel.saveUser(userEntity)
