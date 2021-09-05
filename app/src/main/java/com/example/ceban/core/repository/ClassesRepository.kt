@@ -12,4 +12,6 @@ class ClassesRepository(private val classesRemoteDataSource: ClassesRemoteDataSo
     }
 
     fun getAllSubject(id: Int, level: String) = classesRemoteDataSource.getAll(id, level)
+
+    fun getAssignmentBySubjectId(id: Int, level: String, studentId: Int?) = classesRemoteDataSource.getAssignmentBySubjectId(id, level, studentId)
 }

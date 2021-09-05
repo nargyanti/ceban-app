@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.ceban.R
+import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.ActivityAssignmentDetailBinding
 import com.example.ceban.ui.assignment.detail.guru.GuruAssignmentDetailFragment
@@ -34,10 +35,10 @@ class AssignmentDetailActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val assignment = intent.getParcelableExtra<Assignment>(EXTRA_ASSIGNMENT)
+        val assignment = intent.getParcelableExtra<AssignmentResponseItem>(EXTRA_ASSIGNMENT)
         if(assignment != null) {
             binding.tvAssignmentDetailName.text = assignment.name
-            binding.tvAssignmentDetailDuedatetime.text = assignment.dueDateTime
+            binding.tvAssignmentDetailDuedatetime.text = assignment.dueDatetime
             binding.tvAssignmentDetailQuestion.text = assignment.question
 
             viewModel.getUser().observe(this) {

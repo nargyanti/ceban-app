@@ -9,13 +9,14 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
+import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.core.model.Student
 import com.example.ceban.databinding.ItemCardviewStudentListBinding
 import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerActivity
 import kotlin.random.Random
 
-class CardViewStudentListAdapter(private val assignment: Assignment?, private val listStudent: ArrayList<Student>, private val context: Context) :
+class CardViewStudentListAdapter(private val assignment: AssignmentResponseItem?, private val listStudent: ArrayList<Student>, private val context: Context) :
     RecyclerView.Adapter<CardViewStudentListAdapter.CardViewViewHolder>() {
 
     inner class CardViewViewHolder(private val binding: ItemCardviewStudentListBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -38,7 +38,7 @@ class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>
         holder.cardSubject.setOnClickListener {
             val context = holder.cardSubject.context
             val moveToDetailIntent = Intent(context, AssignmentActivity::class.java)
-            moveToDetailIntent.putExtra(AssignmentActivity.EXTRA_SUBJECTID, subject.id)
+            moveToDetailIntent.putExtra(AssignmentActivity.EXTRA_SUBJECTID, subject.subjectId)
             context.startActivity(moveToDetailIntent)
         }
     }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.AssignmentFileDialogBinding
 import com.example.ceban.databinding.FragmentSiswaAssignmentDetailBinding
@@ -24,7 +25,7 @@ import java.io.FileOutputStream
 private const val EXTRA_ASSIGNMENT = "extra_assignment"
 class SiswaAssignmentDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var assignment: Assignment? = null
+    private var assignment: AssignmentResponseItem? = null
     private lateinit var binding: FragmentSiswaAssignmentDetailBinding
     private var fileListToAdd = ArrayList<Attachment>()
     private lateinit var attachmentToAddAdapter: AttachmentToAddAdapter
@@ -127,7 +128,7 @@ class SiswaAssignmentDetailFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: Assignment) =
+        fun newInstance(param1: AssignmentResponseItem) =
             SiswaAssignmentDetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(EXTRA_ASSIGNMENT, param1)

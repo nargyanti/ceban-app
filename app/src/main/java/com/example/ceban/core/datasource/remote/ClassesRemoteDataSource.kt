@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.ceban.core.datasource.remote.api.ClassesService
 import com.example.ceban.core.datasource.remote.requests.SubjectRequest
 import com.example.ceban.core.datasource.remote.responses.ApiResponse
+import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.datasource.remote.responses.SubjectsResponseItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,6 +45,33 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
             }
 
         })
+        return liveData
+    }
+
+    fun getAssignmentBySubjectId(id: Int, level: String, studentId: Int?): LiveData<ApiResponse<List<AssignmentResponseItem>>> {
+        val liveData = MutableLiveData<ApiResponse<List<AssignmentResponseItem>>>()
+
+        classesService.getAssignmentBySubjectId(id, level, studentId).enqueue(object : Callback<List<AssignmentResponseItem>> {
+            override fun onResponse(
+                call: Call<List<AssignmentResponseItem>>,
+                response: Response<List<AssignmentResponseItem>>
+            ) {
+                if(response.isSuccessful) {
+                    val data = response.body()
+                    if (data != null) {
+                        liveData.postValue(ApiResponse.success(data))
+                    }
+                }else{
+                    liveData.postValue(ApiResponse.error("Error: ${response.message()}", arrayListOf()))
+                }
+            }
+
+            override fun onFailure(call: Call<List<AssignmentResponseItem>>, t: Throwable) {
+                liveData.postValue(ApiResponse.error("Error: ${t.message}", arrayListOf()))
+            }
+
+        })
+
         return liveData
     }
 }

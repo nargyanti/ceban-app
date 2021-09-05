@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.FragmentGuruAssignmentDetailBinding
 import com.example.ceban.utils.StudentsData
 
 private const val EXTRA_ASSIGNMENT = "extra_assignment"
 class GuruAssignmentDetailFragment : Fragment() {
-    private var assignment: Assignment? = null
+    private var assignment: AssignmentResponseItem? = null
     private lateinit var binding: FragmentGuruAssignmentDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class GuruAssignmentDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+//            TODO("mengisi data dengan data dari API")
             binding.rvStudentList.layoutManager = LinearLayoutManager(requireActivity())
             val adapter = CardViewStudentListAdapter(assignment, StudentsData.listData, requireActivity())
             binding.rvStudentList.adapter = adapter
@@ -50,7 +52,7 @@ class GuruAssignmentDetailFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: Assignment) =
+        fun newInstance(param1: AssignmentResponseItem) =
             GuruAssignmentDetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(EXTRA_ASSIGNMENT, param1)

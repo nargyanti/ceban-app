@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.ActivitySubmissionBinding
 import com.example.ceban.ui.assignment.detail.siswa.submission.edit.SubmissionEditActivity
@@ -26,11 +27,11 @@ class SubmissionActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val assignment = intent.getParcelableExtra<Assignment>(EXTRA_ASSIGNMENT)
+        val assignment = intent.getParcelableExtra<AssignmentResponseItem>(EXTRA_ASSIGNMENT)
 
         if (assignment != null) {
             binding.tvAssignmentDetailName.text = assignment.name
-            binding.tvAssignmentDetailDuedatetime.text = assignment.dueDateTime
+            binding.tvAssignmentDetailDuedatetime.text = assignment.dueDatetime
             binding.tvAssignmentDetailQuestion.text = assignment.question
         }
 
