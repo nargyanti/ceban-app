@@ -29,7 +29,7 @@ class ViewModelFactory private constructor(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(AssignmentDetailViewModel::class.java) -> {
-                AssignmentDetailViewModel(userRepository) as T
+                AssignmentDetailViewModel(classesRepository, userRepository) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(userRepository) as T

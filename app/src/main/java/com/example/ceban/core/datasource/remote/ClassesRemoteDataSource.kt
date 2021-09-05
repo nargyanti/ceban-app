@@ -7,6 +7,7 @@ import com.example.ceban.core.datasource.remote.api.ClassesService
 import com.example.ceban.core.datasource.remote.requests.SubjectRequest
 import com.example.ceban.core.datasource.remote.responses.ApiResponse
 import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
+import com.example.ceban.core.datasource.remote.responses.AssignmentStudentResponse
 import com.example.ceban.core.datasource.remote.responses.SubjectsResponseItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,6 +68,33 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
             }
 
             override fun onFailure(call: Call<List<AssignmentResponseItem>>, t: Throwable) {
+                liveData.postValue(ApiResponse.error("Error: ${t.message}", arrayListOf()))
+            }
+
+        })
+
+        return liveData
+    }
+
+    fun getStudentFromAssignment(id: Int): LiveData<ApiResponse<List<AssignmentStudentResponse>>> {
+        val liveData = MutableLiveData<ApiResponse<List<AssignmentStudentResponse>>>()
+
+        classesService.getStudentByAssignmentId(id).enqueue(object : Callback<List<AssignmentStudentResponse>> {
+            override fun onResponse(
+                call: Call<List<AssignmentStudentResponse>>,
+                response: Response<List<AssignmentStudentResponse>>
+            ) {
+                if(response.isSuccessful) {
+                    val data = response.body()
+                    if (data != null) {
+                        liveData.postValue(ApiResponse.success(data))
+                    }
+                }else{
+                    liveData.postValue(ApiResponse.error("Error: ${response.message()}", arrayListOf()))
+                }
+            }
+
+            override fun onFailure(call: Call<List<AssignmentStudentResponse>>, t: Throwable) {
                 liveData.postValue(ApiResponse.error("Error: ${t.message}", arrayListOf()))
             }
 

@@ -5,16 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
+import com.example.ceban.core.datasource.remote.responses.StatusResponse
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.FragmentGuruAssignmentDetailBinding
+import com.example.ceban.ui.assignment.detail.AssignmentDetailViewModel
 import com.example.ceban.utils.StudentsData
+import com.example.ceban.utils.ViewModelFactory
 
 private const val EXTRA_ASSIGNMENT = "extra_assignment"
 class GuruAssignmentDetailFragment : Fragment() {
     private var assignment: AssignmentResponseItem? = null
     private lateinit var binding: FragmentGuruAssignmentDetailBinding
+    private lateinit var viewModel: AssignmentDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +31,10 @@ class GuruAssignmentDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGuruAssignmentDetailBinding.inflate(inflater, container, false)
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(requireActivity(), factory)[AssignmentDetailViewModel::class.java]
         return binding.root
     }
 
@@ -35,9 +42,17 @@ class GuruAssignmentDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 //            TODO("mengisi data dengan data dari API")
-            binding.rvStudentList.layoutManager = LinearLayoutManager(requireActivity())
-            val adapter = CardViewStudentListAdapter(assignment, StudentsData.listData, requireActivity())
-            binding.rvStudentList.adapter = adapter
+            assignment?.let {
+                viewModel.getStudentAnswerFromAssignment(it.id).observe(viewLifecycleOwner) { studentList ->
+                    when(studentList.status) {
+                        StatusResponse.SUCCESS -> {
+                            binding.rvStudentList.layoutManager = LinearLayoutManager(requireActivity())
+                            val adapter = CardViewStudentListAdapter(assignment, studentList.body, requireActivity())
+                            binding.rvStudentList.adapter = adapter
+                        }
+                    }
+                }
+            }
         }
     }
 
