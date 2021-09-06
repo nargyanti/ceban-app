@@ -18,4 +18,9 @@
     <string name="student_name">Nama siswa</string>
     <string name="submit_score">Simpan Nilai</string>
     <string name="student_answer">Sejarah Olahraga tenis meja Permainan ini mulai populer di Inggris sejak abad ke 19 dengan nama pingpong, gossima dan whiff whoff. lalu mengganti nama menjadi table tennis atau tenis meja. Tenis menja mulai dikenal pada tahun 1901 karena diadakannya turnamen buku yang menuliskan tentang tenis meja.</string>
+    <string name="kirim">Kirim</string>
+    <string name="edit">Ubah Jawaban</string>
+    <string name="jawaban_saya">Jawaban Saya</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
