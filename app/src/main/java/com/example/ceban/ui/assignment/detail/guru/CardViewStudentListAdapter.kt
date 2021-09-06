@@ -2,6 +2,7 @@ package com.example.ceban.ui.assignment.detail.guru
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,9 @@ class CardViewStudentListAdapter(private val assignment: AssignmentResponseItem?
     inner class CardViewViewHolder(private val binding: ItemCardviewStudentListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(student: AssignmentStudentResponse) {
             binding.tvAssignmentStudentName.text = student.name
+            val nilai = student.score
+            val id = student.answerId
+            Log.d("Nilai", "$id : $nilai")
             binding.tvNilai.text = "Nilai : ${student.score}"
 
             binding.btnCheckStudentAnswer.setOnClickListener {

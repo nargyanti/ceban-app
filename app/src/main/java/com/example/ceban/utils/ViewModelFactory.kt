@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.ceban.core.repository.ClassesRepository
 import com.example.ceban.core.repository.UserRepository
 import com.example.ceban.ui.assignment.detail.AssignmentDetailViewModel
+import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerViewModel
 import com.example.ceban.ui.assignment.home.AssignmentViewModel
 import com.example.ceban.ui.login.LoginViewModel
 import com.example.ceban.ui.main.ClassesViewModel
@@ -39,6 +40,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(AssignmentViewModel::class.java) -> {
                 AssignmentViewModel(classesRepository, userRepository) as T
+            }
+            modelClass.isAssignableFrom(StudentAnswerViewModel::class.java) -> {
+                StudentAnswerViewModel() as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -13,6 +13,9 @@ data class AssignmentStudentResponse(
 	@field:SerializedName("user_id")
 	val userId: Int? = null,
 
+	@field:SerializedName("no_absen")
+	val noAbsen: Int? = null,
+
 	@field:SerializedName("name")
 	val name: String? = null,
 
