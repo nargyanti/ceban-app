@@ -1,6 +1,7 @@
 package com.example.ceban.ui.assignment.home
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ class CardViewAssignmentAdapter(
         holder.cardAssignment.setOnClickListener {
 //            TODO("cek apakah soal sudah dikerjakan atau belum. jika ya pindah ke halaman detail, jika belum pergi ke add jawaban")
             if(user.level == "Student") {
+                Log.d("Asssignment", assignment.toString())
                 if(assignment.answerCount == 0) {
                     val context = holder.cardAssignment.context
                     val moveToDetailIntent = Intent(context, AssignmentDetailActivity::class.java)

@@ -16,6 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Injection {
+    const val HOST = "http://af8b-125-166-5-210.ngrok.io"
+
     private val client = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .connectTimeout(120, TimeUnit.SECONDS)
@@ -25,7 +27,7 @@ object Injection {
 
     private val retrofit = Retrofit.Builder()
         .client(client)
-        .baseUrl("http://4780-125-166-5-210.ngrok.io")
+        .baseUrl(HOST)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

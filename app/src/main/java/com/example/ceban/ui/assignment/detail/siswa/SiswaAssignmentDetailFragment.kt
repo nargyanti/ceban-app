@@ -7,11 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ceban.core.datasource.local.entity.UserEntity
+import com.example.ceban.core.datasource.remote.requests.AnswerRequest
 import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
+import com.example.ceban.core.datasource.remote.responses.StatusResponse
 import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.AssignmentFileDialogBinding
 import com.example.ceban.databinding.FragmentSiswaAssignmentDetailBinding
@@ -19,8 +23,12 @@ import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
 import com.example.ceban.ui.assignment.detail.AssignmentDetailViewModel
 import com.example.ceban.ui.assignment.detail.siswa.submission.home.SubmissionActivity
 import com.example.ceban.utils.Attachment
+import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 private const val EXTRA_ASSIGNMENT = "extra_assignment"
 class SiswaAssignmentDetailFragment : Fragment() {
@@ -30,6 +38,7 @@ class SiswaAssignmentDetailFragment : Fragment() {
     private var fileListToAdd = ArrayList<Attachment>()
     private lateinit var attachmentToAddAdapter: AttachmentToAddAdapter
     private lateinit var viewModel: AssignmentDetailViewModel
+    private var user: UserEntity = UserEntity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,23 +59,70 @@ class SiswaAssignmentDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[AssignmentDetailViewModel::class.java]
-            if (assignment != null) {
-                binding.rvAssignment.layoutManager = LinearLayoutManager(activity)
-                val adapter = FileListAdapter()
-                binding.rvAssignment.adapter = adapter
-                viewModel.fileList.observe(viewLifecycleOwner, {
-                    adapter.setData(it)
-                })
+            binding.rvAssignment.layoutManager = LinearLayoutManager(activity)
+            val adapter = FileListAdapter()
+            binding.rvAssignment.adapter = adapter
+            viewModel.fileList.observe(viewLifecycleOwner, { attachmentList ->
+                adapter.setData(attachmentList)
+            })
 
-                binding.btnSubmit.setOnClickListener {
-                    startActivity(Intent(activity, SubmissionActivity::class.java).apply {
-                        putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
-                    })
-                    activity?.finish()
-                }
+            viewModel.getUser().observe(viewLifecycleOwner) {
+                user = it
+            }
 
-                binding.btnUploadAnswer.setOnClickListener {
-                    openAddFileDialog()
+            binding.btnSubmit.setOnClickListener {
+                addAnswer()
+            }
+
+            binding.btnUploadAnswer.setOnClickListener {
+                openAddFileDialog()
+            }
+        }
+    }
+
+    private fun addAnswer() {
+        assignment.let { data ->
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val date = dateFormat.format(Date())
+            val request = AnswerRequest(
+                assignmentId = data?.id,
+                score = 0,
+                studentId = user.id,
+                submitDatetime = date
+            )
+            viewModel.addAnswer(request).observe(viewLifecycleOwner) { answer ->
+                when(answer.status) {
+                    StatusResponse.SUCCESS -> {
+                        val uploadStatus = arrayListOf<Boolean>()
+                        viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
+                            fileList.forEach { attachment ->
+                                viewModel.addAnswerPictures(attachment.file, answer.body.id)
+                                    .observe(viewLifecycleOwner){ answerPicture ->
+                                        when(answerPicture.status) {
+                                            StatusResponse.SUCCESS -> {
+                                                Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
+                                                uploadStatus.add(true)
+                                            }
+                                            else -> {
+                                                Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
+                                                uploadStatus.add(false)
+                                            }
+                                        }
+                                    }
+                            }
+                            if (uploadStatus.size == fileListToAdd.size && uploadStatus.all { it }) {
+                                startActivity(Intent(activity, SubmissionActivity::class.java).apply {
+                                    putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
+                                    putExtra(SubmissionActivity.EXTRA_ANSWER, answer.body)
+                                })
+                                activity?.finish()
+                            }
+                        }
+
+                    }
+                    else -> {
+                        Toast.makeText(context, "Terjadi kesalahan saat menambah jawaban", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -106,7 +162,8 @@ class SiswaAssignmentDetailFragment : Fragment() {
             if (uri != null) {
                 Log.d("GetFile", "Path : ${uri.path}")
                 var inputStream =  activity?.contentResolver?.openInputStream(uri)
-                var file = File(File(activity?.filesDir, "photos"), "3.jpg")
+                val date = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+                var file = File(File(activity?.filesDir, "photos"), "$date.jpg")
                 if (file.exists()) file.delete() else file.parentFile.mkdirs()
                 var outputStream = FileOutputStream(file)
                 if (inputStream != null) {
