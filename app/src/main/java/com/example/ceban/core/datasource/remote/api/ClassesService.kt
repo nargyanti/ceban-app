@@ -32,4 +32,7 @@ interface ClassesService {
     fun getAnswerPictures(
         @Path("id") id: Int
     ): Call<List<AnswerPictureResponse>>
+
+    @DELETE("answer_pictures/{id}")
+    fun deleteAnswerPicture(@Path("id") pictureId: Int): Call<MessageResponse>
 }

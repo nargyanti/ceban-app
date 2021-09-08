@@ -43,21 +43,26 @@ class SubmissionActivity : AppCompatActivity() {
 
             when {
                 assignment.answerCount > 0 -> {
-                    viewModel.getAnswerPictures(assignment.answerCount).observe(this) {
-                        prepareRv(it)
-                    }
+                    prepareView(assignment.answerCount)
                 }
                 answer != null -> {
-                    viewModel.getAnswerPictures(answer.id).observe(this) {
-                        prepareRv(it)
-                    }
+                    prepareView(answer.id)
                 }
             }
         }
 
+
+    }
+
+    fun prepareView(id: Int) {
+        viewModel.getAnswerPictures(id).observe(this) {
+            prepareRv(it)
+        }
+
         binding.btnEdit.setOnClickListener {
             val intent = Intent(this, SubmissionEditActivity::class.java)
-            intent.putExtra(SubmissionEditActivity.EXTRA_ASSIGNMENT, assignment)
+            intent.putExtra(SubmissionEditActivity.EXTRA_ASSIGNMENT_ID, id)
+            startActivity(intent)
         }
     }
 

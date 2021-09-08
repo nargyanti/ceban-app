@@ -184,4 +184,29 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
         })
         return liveData
     }
+
+    fun deleteAnswerPictures(id: Int): LiveData<ApiResponse<MessageResponse>> {
+        val liveData = MutableLiveData<ApiResponse<MessageResponse>>()
+        classesService.deleteAnswerPicture(id).enqueue(object : Callback<MessageResponse> {
+            override fun onResponse(
+                call: Call<MessageResponse>,
+                response: Response<MessageResponse>
+            ) {
+                if(response.isSuccessful) {
+                    val data = response.body()
+                    if(data != null) {
+                        liveData.value =  ApiResponse.success(data)
+                    }
+                }else{
+                    liveData.value =  ApiResponse.error(response.message(), MessageResponse())
+                }
+            }
+
+            override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                liveData.value =  ApiResponse.error(t.message, MessageResponse())
+            }
+
+        })
+        return liveData
+    }
 }

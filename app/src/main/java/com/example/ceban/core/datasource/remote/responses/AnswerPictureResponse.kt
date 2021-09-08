@@ -14,7 +14,7 @@ data class AnswerPictureResponse(
 	val convertResult: String? = null,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int = 0,
 
 	@field:SerializedName("answer_id")
 	val answerId: String? = null

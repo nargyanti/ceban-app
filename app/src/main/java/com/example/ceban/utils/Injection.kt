@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Injection {
-    const val HOST = "http://af8b-125-166-5-210.ngrok.io"
+    const val HOST = "http://9fa2-125-166-5-210.ngrok.io"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))

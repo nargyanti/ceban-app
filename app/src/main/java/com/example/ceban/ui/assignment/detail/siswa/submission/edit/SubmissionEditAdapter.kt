@@ -4,22 +4,30 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ceban.core.datasource.remote.responses.AnswerPictureResponse
 import com.example.ceban.databinding.ItemStudentAnswerEditBinding
 import com.example.ceban.utils.Attachment
+import com.example.ceban.utils.Injection
 
-class SubmissionEditAdapter: RecyclerView.Adapter<SubmissionEditAdapter.StudentViewHolder>() {
-    val attachmentList = ArrayList<Attachment>()
+abstract class SubmissionEditAdapter : RecyclerView.Adapter<SubmissionEditAdapter.StudentViewHolder>() {
+    val attachmentList = ArrayList<AnswerPictureResponse>()
 
-    fun setData(data: List<Attachment>) {
+    fun setData(data: List<AnswerPictureResponse>) {
         attachmentList.clear()
         attachmentList.addAll(data)
         notifyDataSetChanged()
     }
 
-    class StudentViewHolder(private var binding: ItemStudentAnswerEditBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(attachment: Attachment) {
-            binding.tvNamaFile.text = attachment.namaFile
-            Glide.with(binding.root).load(attachment.urlFile).into(binding.imgEditThumbnail)
+    inner class StudentViewHolder(private var binding: ItemStudentAnswerEditBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(attachment: AnswerPictureResponse) {
+            binding.tvNamaFile.text = attachment.path
+            Glide
+                .with(binding.root)
+                .load(Injection.HOST + "/download?filename=" + attachment.path)
+                .into(binding.imgEditThumbnail)
+            binding.imageView4.setOnClickListener {
+                onDeleteButtonClickCallback(attachment.id)
+            }
         }
 
     }
@@ -36,4 +44,6 @@ class SubmissionEditAdapter: RecyclerView.Adapter<SubmissionEditAdapter.StudentV
     override fun getItemCount(): Int {
         return attachmentList.size
     }
+
+    abstract fun onDeleteButtonClickCallback(id: Int)
 }
