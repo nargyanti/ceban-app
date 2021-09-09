@@ -1,8 +1,11 @@
 package com.example.ceban.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +13,7 @@ import com.example.ceban.R
 import com.example.ceban.core.datasource.remote.responses.StatusResponse
 import com.example.ceban.core.model.Subject
 import com.example.ceban.databinding.ActivityMainBinding
+import com.example.ceban.ui.login.LoginActivity
 import com.example.ceban.utils.SubjectsData
 import com.example.ceban.utils.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -52,5 +56,21 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.logout -> {
+                viewModel.logout()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
+        return true
     }
 }
