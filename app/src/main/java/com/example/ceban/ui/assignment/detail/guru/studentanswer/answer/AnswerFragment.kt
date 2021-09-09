@@ -5,13 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.ceban.R
+import com.example.ceban.core.datasource.remote.requests.AnswerRequest
 import com.example.ceban.core.datasource.remote.responses.*
 import com.example.ceban.databinding.FragmentAnswerBinding
 import com.example.ceban.ui.assignment.detail.guru.studentanswer.ImageAdapter
 import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerViewModel
 import com.example.ceban.utils.ViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,30 +57,63 @@ class AnswerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if(student != null) {
-            binding.edtScore.setText("${student?.score}")
             student?.answerId?.let { answerId ->
-                viewModel.getPictures(answerId).observe(viewLifecycleOwner) { response ->
-                    prepareView(response)
-                }
+                prepareView(answerId)
             }
         }else if(answer != null) {
             answer?.id?.let { id ->
-                viewModel.getPictures(id).observe(viewLifecycleOwner){ response ->
-                    prepareView(response)
-                }
+                prepareView(id)
             }
         }
     }
 
-    fun prepareView(response: ApiResponse<List<AnswerPictureResponse>>) {
-        when(response.status) {
-            StatusResponse.SUCCESS -> {
-                response.body.forEach { pictures ->
-                    imageList.add( pictures.path)
-                    jawaban += pictures.convertResult + "\n"
+    fun prepareView(answerId: Int) {
+        viewModel.getAnswer(answerId).observe(viewLifecycleOwner) { response ->
+            when(response.status) {
+                StatusResponse.SUCCESS -> {
+                    answer = response.body
+
+                    viewModel.getPictures(answerId).observe(viewLifecycleOwner) { response ->
+                        when(response.status) {
+                            StatusResponse.SUCCESS -> {
+                                jawaban = ""
+                                response.body.forEach { pictures ->
+                                    imageList.add( pictures.path)
+                                    jawaban += pictures.convertResult + "\n"
+                                }
+                                binding.tvStudentAnswer.text = jawaban
+                                prepareImage()
+                            }
+                        }
+                    }
+
+                    binding.edtScore.setText("${answer?.score}")
+                    binding.btnSaveScore.setOnClickListener {
+                        editScore(response.body.id)
+                    }
                 }
-                binding.tvStudentAnswer.text = jawaban
-                prepareImage()
+            }
+        }
+
+    }
+
+    fun editScore(answerId: Int) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val date = dateFormat.parse(answer?.submitDatetime)
+        val validDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val validDate = validDateFormat.format(date)
+        val request = AnswerRequest(
+            assignmentId = answer?.assignmentId,
+            score = binding.edtScore.text.toString().toInt(),
+            studentId = answer?.studentId,
+            submitDatetime = validDate
+        )
+        viewModel.editScore(request, answerId).observe(viewLifecycleOwner) { response ->
+            when(response.status) {
+                StatusResponse.SUCCESS -> {
+                    Toast.makeText(requireActivity(), "Berhasil mengubah jawaban", Toast.LENGTH_SHORT).show()
+                    prepareView(response.body.id)
+                }
             }
         }
     }

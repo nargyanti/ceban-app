@@ -209,4 +209,55 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
         })
         return liveData
     }
+
+    fun getAnswer(id: Int): LiveData<ApiResponse<AnswerResponse>> {
+        val liveData = MutableLiveData<ApiResponse<AnswerResponse>>()
+        classesService.getAnswer(id).enqueue(object : Callback<AnswerResponse> {
+            override fun onResponse(
+                call: Call<AnswerResponse>,
+                response: Response<AnswerResponse>
+            ) {
+                if(response.isSuccessful) {
+                    val data = response.body()
+                    if(data != null) {
+                        liveData.value =  ApiResponse.success(data)
+                    }
+                }else{
+                    liveData.value =  ApiResponse.error(response.message(), AnswerResponse())
+                }
+            }
+
+            override fun onFailure(call: Call<AnswerResponse>, t: Throwable) {
+                liveData.value =  ApiResponse.error(t.message, AnswerResponse())
+            }
+
+        })
+
+        return liveData
+    }
+
+    fun editAnswer(answerRequest: AnswerRequest, answerId: Int): LiveData<ApiResponse<AnswerResponse>> {
+        val liveData = MutableLiveData<ApiResponse<AnswerResponse>>()
+        classesService.editAnswer(answerId, answerRequest).enqueue(object : Callback<AnswerResponse> {
+            override fun onResponse(
+                call: Call<AnswerResponse>,
+                response: Response<AnswerResponse>
+            ) {
+                if(response.isSuccessful) {
+                    val data = response.body()
+                    if(data != null) {
+                        liveData.value =  ApiResponse.success(data)
+                    }
+                }else{
+                    liveData.value =  ApiResponse.error(response.message(), AnswerResponse())
+                }
+            }
+
+            override fun onFailure(call: Call<AnswerResponse>, t: Throwable) {
+                liveData.value =  ApiResponse.error(t.message, AnswerResponse())
+            }
+
+        })
+        return liveData
+    }
 }

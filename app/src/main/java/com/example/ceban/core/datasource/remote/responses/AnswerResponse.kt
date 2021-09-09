@@ -20,5 +20,5 @@ data class AnswerResponse(
 	val id: Int = 0,
 
 	@field:SerializedName("submit_datetime")
-	val submitDatetime: String? = null
+	val submitDatetime: String = ""
 ) : Parcelable

@@ -26,4 +26,7 @@ class ClassesRepository(private val classesRemoteDataSource: ClassesRemoteDataSo
     fun getAnswerPictures(id: Int) = classesRemoteDataSource.getAnswerPictures(id)
 
     fun deleteAnswerPicture(id: Int) = classesRemoteDataSource.deleteAnswerPictures(id)
+
+    fun getAnswerDetail(id: Int) = classesRemoteDataSource.getAnswer(id)
+    fun editAnswer(answerRequest: AnswerRequest, answerId: Int) = classesRemoteDataSource.editAnswer(answerRequest, answerId)
 }
