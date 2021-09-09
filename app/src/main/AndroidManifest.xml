@@ -12,8 +12,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Ceban">
+        android:theme="@style/Theme.Ceban"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.main.MainActivity2"
+            android:exported="true"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.Ceban.NoActionBar" />
         <activity
             android:name=".ui.assignment.detail.guru.studentanswer.StudentAnswerActivity"
             android:exported="true" />

@@ -8,4 +8,6 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel(){
     fun login(username: String, password: String) = userRepository.login(username, password)
 
     fun saveUser(userEntity: UserEntity) = userRepository.saveUser(userEntity)
+
+    fun getUser() = userRepository.getUser()
 }

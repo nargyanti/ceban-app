@@ -24,4 +24,13 @@
         <item name="android:fontFamily">@font/nunito_regular</item>
         <item name="android:textColor">#43426D</item>
     </style>
+
+    <style name="Theme.Ceban.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Ceban.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Ceban.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
