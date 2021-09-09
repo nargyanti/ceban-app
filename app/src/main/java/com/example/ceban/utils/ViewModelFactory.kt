@@ -44,7 +44,7 @@ class ViewModelFactory private constructor(
                 AssignmentViewModel(classesRepository, userRepository) as T
             }
             modelClass.isAssignableFrom(StudentAnswerViewModel::class.java) -> {
-                StudentAnswerViewModel() as T
+                StudentAnswerViewModel(classesRepository, userRepository) as T
             }
             modelClass.isAssignableFrom(AnswerViewModel::class.java) -> {
                 AnswerViewModel(classesRepository) as T

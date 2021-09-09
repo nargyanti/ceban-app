@@ -8,10 +8,10 @@ import kotlinx.android.parcel.Parcelize
 data class AnswerPictureResponse(
 
 	@field:SerializedName("path")
-	val path: String? = null,
+	val path: String = "",
 
 	@field:SerializedName("convert_result")
-	val convertResult: String? = null,
+	val convertResult: String = "",
 
 	@field:SerializedName("id")
 	val id: Int = 0,

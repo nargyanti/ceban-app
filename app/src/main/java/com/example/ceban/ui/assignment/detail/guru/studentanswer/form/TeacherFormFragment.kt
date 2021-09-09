@@ -7,22 +7,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ceban.R
+import com.example.ceban.core.datasource.remote.requests.AnswerRequest
 import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.datasource.remote.responses.AssignmentStudentResponse
+import com.example.ceban.core.datasource.remote.responses.StatusResponse
+import com.example.ceban.core.model.Student
 import com.example.ceban.databinding.AssignmentFileDialogBinding
 import com.example.ceban.databinding.FragmentTeacherFormBinding
 import com.example.ceban.ui.assignment.detail.AssignmentDetailActivity
+import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerActivity
 import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerViewModel
+import com.example.ceban.ui.assignment.detail.guru.studentanswer.answer.AnswerFragment
 import com.example.ceban.ui.assignment.detail.siswa.AttachmentToAddAdapter
+import com.example.ceban.ui.assignment.detail.siswa.submission.home.SubmissionActivity
 import com.example.ceban.utils.Attachment
 import com.example.ceban.utils.ViewModelFactory
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,6 +81,47 @@ class TeacherFormFragment : Fragment() {
                 openAddFileDialog()
             }
             binding.btnSubmit.setOnClickListener {
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val date = dateFormat.format(Date())
+                val request = AnswerRequest(assignmentId = assignment?.id, 0, student?.userId, date)
+                val uploadStatus = arrayListOf<Boolean>()
+                viewModel.addAnswer(request).observe(viewLifecycleOwner) { answer ->
+                    when(answer.status) {
+                        StatusResponse.SUCCESS -> {
+                            viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
+                                fileList.forEach {
+                                    student?.userId?.let { studentId ->
+                                        viewModel.addAnswerPictures(it.file, answer.body.id).observe(viewLifecycleOwner) {
+                                            when(it.status) {
+                                                StatusResponse.SUCCESS -> {
+                                                    Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
+                                                    uploadStatus.add(true)
+
+                                                    if (uploadStatus.size == fileList.size && uploadStatus.all { it }) {
+                                                        val fragment = AnswerFragment().apply {
+                                                            arguments = Bundle().apply {
+                                                                putParcelable(AnswerFragment.ANSWER, answer.body)
+                                                            }
+                                                        }
+                                                        requireActivity().supportFragmentManager.beginTransaction()
+                                                            .replace(R.id.student_answer_container, fragment)
+                                                            .commit()
+                                                    }
+                                                }
+                                                else -> {
+                                                    Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
+                                                    uploadStatus.add(false)
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+                    }
+                }
 
             }
         }
