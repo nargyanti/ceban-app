@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="Belum Memasukkan Jawaban"
         android:textAlignment="center"
+        android:id="@+id/tv_belum_ada_jawaban"
         android:layout_marginTop="20dp"/>
 
     <androidx.appcompat.widget.AppCompatButton

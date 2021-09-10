@@ -7,6 +7,8 @@ import com.example.ceban.core.repository.ClassesRepository
 import com.example.ceban.core.repository.UserRepository
 import com.example.ceban.ui.assignment.detail.AssignmentDetailViewModel
 import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerViewModel
+import com.example.ceban.ui.assignment.detail.siswa.submission.edit.SubmissionEditViewModel
+import com.example.ceban.ui.assignment.detail.siswa.submission.home.AnswerViewModel
 import com.example.ceban.ui.assignment.home.AssignmentViewModel
 import com.example.ceban.ui.login.LoginViewModel
 import com.example.ceban.ui.main.ClassesViewModel
@@ -42,7 +44,13 @@ class ViewModelFactory private constructor(
                 AssignmentViewModel(classesRepository, userRepository) as T
             }
             modelClass.isAssignableFrom(StudentAnswerViewModel::class.java) -> {
-                StudentAnswerViewModel() as T
+                StudentAnswerViewModel(classesRepository, userRepository) as T
+            }
+            modelClass.isAssignableFrom(AnswerViewModel::class.java) -> {
+                AnswerViewModel(classesRepository) as T
+            }
+            modelClass.isAssignableFrom(SubmissionEditViewModel::class.java) -> {
+                SubmissionEditViewModel(classesRepository, userRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

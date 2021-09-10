@@ -5,16 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.ceban.R
-import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
-import com.example.ceban.core.datasource.remote.responses.AssignmentStudentResponse
+import com.example.ceban.core.datasource.remote.requests.AnswerRequest
+import com.example.ceban.core.datasource.remote.responses.*
 import com.example.ceban.databinding.FragmentAnswerBinding
 import com.example.ceban.ui.assignment.detail.guru.studentanswer.ImageAdapter
+import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerViewModel
+import com.example.ceban.utils.ViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val STUDENT = "student"
-private const val ASSIGNMENT = "assignment"
 
 /**
  * A simple [Fragment] subclass.
@@ -24,37 +28,94 @@ private const val ASSIGNMENT = "assignment"
 class AnswerFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var student: AssignmentStudentResponse? = null
-    private var assignment: AssignmentResponseItem? = null
+    private var answer: AnswerResponse? = null
     private lateinit var binding: FragmentAnswerBinding
-    var imageList = arrayListOf("https://cdn.idntimes.com/content-images/post/20200810/4-b85fc68aa0c39ec0d7cf8292b429ec09_600x400.jpg")
+    private lateinit var viewModel: StudentAnswerViewModel
+    var imageList = arrayListOf<String>()
+    var jawaban = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             student = it.getParcelable(STUDENT)
-            assignment = it.getParcelable(ASSIGNMENT)
+            answer = it.getParcelable(ANSWER)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentAnswerBinding.inflate(inflater, container, false)
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(this, factory)[StudentAnswerViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvStudentAnswer.text = resources.getString(R.string.student_answer)
-        if (student != null) {
-            student.let {
-                binding.edtScore.setText("${it?.score}")
-            }
 
+        if(student != null) {
+            student?.answerId?.let { answerId ->
+                prepareView(answerId)
+            }
+        }else if(answer != null) {
+            answer?.id?.let { id ->
+                prepareView(id)
+            }
         }
-        prepareImage()
+    }
+
+    fun prepareView(answerId: Int) {
+        viewModel.getAnswer(answerId).observe(viewLifecycleOwner) { response ->
+            when(response.status) {
+                StatusResponse.SUCCESS -> {
+                    answer = response.body
+
+                    viewModel.getPictures(answerId).observe(viewLifecycleOwner) { response ->
+                        when(response.status) {
+                            StatusResponse.SUCCESS -> {
+                                jawaban = ""
+                                response.body.forEach { pictures ->
+                                    imageList.add( pictures.path)
+                                    jawaban += pictures.convertResult + "\n"
+                                }
+                                binding.tvStudentAnswer.text = jawaban
+                                prepareImage()
+                            }
+                        }
+                    }
+
+                    binding.edtScore.setText("${answer?.score}")
+                    binding.btnSaveScore.setOnClickListener {
+                        editScore(response.body.id)
+                    }
+                }
+            }
+        }
+
+    }
+
+    fun editScore(answerId: Int) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val date = dateFormat.parse(answer?.submitDatetime)
+        val validDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val validDate = validDateFormat.format(date)
+        val request = AnswerRequest(
+            assignmentId = answer?.assignmentId,
+            score = binding.edtScore.text.toString().toInt(),
+            studentId = answer?.studentId,
+            submitDatetime = validDate
+        )
+        viewModel.editScore(request, answerId).observe(viewLifecycleOwner) { response ->
+            when(response.status) {
+                StatusResponse.SUCCESS -> {
+                    Toast.makeText(requireActivity(), "Berhasil mengubah jawaban", Toast.LENGTH_SHORT).show()
+                    prepareView(response.body.id)
+                }
+            }
+        }
     }
 
     private fun prepareImage() {
@@ -80,6 +141,10 @@ class AnswerFragment : Fragment() {
                     putParcelable(ASSIGNMENT, assignment)
                 }
             }
+
+        const val STUDENT = "student"
+        const val ASSIGNMENT = "assignment"
+        const val ANSWER = "answer"
     }
 
 

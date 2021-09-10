@@ -4,22 +4,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ceban.core.datasource.remote.responses.AnswerPictureResponse
+import com.example.ceban.core.datasource.remote.responses.AnswerResponse
 import com.example.ceban.databinding.ItemStudentAnswerBinding
 import com.example.ceban.utils.Attachment
+import com.example.ceban.utils.Injection
 
 class SubmissionAdapter: RecyclerView.Adapter<SubmissionAdapter.StudentAnswerViewHolder>() {
-    val attachmentList = ArrayList<Attachment>()
+    val attachmentList = ArrayList<AnswerPictureResponse>()
 
-    fun setData(data: List<Attachment>) {
+    fun setData(data: List<AnswerPictureResponse>) {
         attachmentList.clear()
         attachmentList.addAll(data)
         notifyDataSetChanged()
     }
 
     class StudentAnswerViewHolder(private var binding: ItemStudentAnswerBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(attachment: Attachment) {
-            binding.tvFileName.text = attachment.namaFile
-            Glide.with(binding.root).load(attachment.urlFile).into(binding.imgThumbnail)
+        fun bind(attachment: AnswerPictureResponse) {
+            binding.tvFileName.text = attachment.path
+            Glide.with(binding.root).load(Injection.HOST + "/download?filename=" + attachment.path).into(binding.imgThumbnail)
         }
     }
 

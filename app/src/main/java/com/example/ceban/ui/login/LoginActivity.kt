@@ -27,32 +27,44 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        binding.btnLogin.setOnClickListener {
-            val username = binding.edtUsername.text
-            val password = binding.edtPassword.text
 
-            viewModel.login(username = username.toString(), password = password.toString()).observe(this, {
-                when(it.status) {
-                    StatusResponse.SUCCESS -> {
-                        val userEntity = UserEntity(
-                            id = it.body.id?: 0,
-                            name = it.body.name,
-                            username = it.body.username,
-                            password = it.body.password,
-                            telp = it.body.telp,
-                            level = it.body.level?: "",
-                            entryYear = it.body.entryYear
-                        )
-                        viewModel.saveUser(userEntity)
-                        startActivity(Intent(this, MainActivity::class.java))
-                    }
-                    else -> {
-                        Snackbar.make(binding.root, "Terjadi kesalahan saat login", Snackbar.LENGTH_SHORT).show()
-                        Log.e("Login", "Error: ${it.message}")
-                    }
-                }
-            })
-
+        viewModel.getUser().observe(this) {
+            if (it.id > 0) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         }
+
+        binding.btnLogin.setOnClickListener {
+            login()
+        }
+    }
+
+    private fun login() {
+        val username = binding.edtUsername.text
+        val password = binding.edtPassword.text
+
+        viewModel.login(username = username.toString(), password = password.toString()).observe(this, {
+            when(it.status) {
+                StatusResponse.SUCCESS -> {
+                    val userEntity = UserEntity(
+                        id = it.body.id?: 0,
+                        name = it.body.name,
+                        username = it.body.username,
+                        password = it.body.password,
+                        telp = it.body.telp,
+                        level = it.body.level?: "",
+                        entryYear = it.body.entryYear
+                    )
+                    viewModel.saveUser(userEntity)
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                else -> {
+                    Snackbar.make(binding.root, "Terjadi kesalahan saat login", Snackbar.LENGTH_SHORT).show()
+                    Log.e("Login", "Error: ${it.message}")
+                }
+            }
+        })
     }
 }

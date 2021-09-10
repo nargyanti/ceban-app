@@ -7,8 +7,7 @@ import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import androidx.viewpager.widget.ViewPager
-
-
+import com.example.ceban.utils.Injection
 
 
 class ImageAdapter(private val context: Context, private val imageList: List<String>): PagerAdapter() {
@@ -24,7 +23,7 @@ class ImageAdapter(private val context: Context, private val imageList: List<Str
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(context)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        Glide.with(context).load(imageList[position]).into(imageView)
+        Glide.with(context).load(Injection.HOST + "/download?filename=" + imageList[position]).into(imageView)
         (container as ViewPager).addView(imageView, 0)
         return imageView
     }
