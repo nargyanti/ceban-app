@@ -16,7 +16,7 @@ interface ClassesService {
     @GET("subjects/{id}/assignments")
     fun getAssignmentBySubjectId(@Path("id") id: Int, @Query("level")level: String, @Query("studentId") studentId: Int?): Call<List<AssignmentResponseItem>>
 
-    @POST("assignment")
+    @POST("assignments")
     fun addAssignment(@Body assignmentAddRequest: AssignmentAddRequest): Call<AssignmentAddResponse>
 
     @GET("assignments/{id}/students")

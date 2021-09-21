@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 style="@style/Body"
-                android:visibility="gone"
                 tools:text="XII-IPA 1" />
         </LinearLayout>
 
