@@ -7,12 +7,12 @@ import com.example.ceban.databinding.ItemAttachmentToAddBinding
 import com.example.ceban.utils.Attachment
 
 class AttachmentToAddAdapter: RecyclerView.Adapter<AttachmentToAddAdapter.AttachmentViewHolder>() {
-    val attachmentList = ArrayList<Attachment>()
+    private val attachmentList = ArrayList<Attachment>()
 
     fun setData(data: List<Attachment>) {
         attachmentList.clear()
         attachmentList.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, data.size)
     }
 
     fun addData(data: Attachment) {

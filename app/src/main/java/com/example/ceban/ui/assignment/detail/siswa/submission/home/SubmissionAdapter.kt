@@ -11,12 +11,12 @@ import com.example.ceban.utils.Attachment
 import com.example.ceban.utils.Injection
 
 class SubmissionAdapter: RecyclerView.Adapter<SubmissionAdapter.StudentAnswerViewHolder>() {
-    val attachmentList = ArrayList<AnswerPictureResponse>()
+    private val attachmentList = ArrayList<AnswerPictureResponse>()
 
     fun setData(data: List<AnswerPictureResponse>) {
         attachmentList.clear()
         attachmentList.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, data.size)
     }
 
     class StudentAnswerViewHolder(private var binding: ItemStudentAnswerBinding): RecyclerView.ViewHolder(binding.root) {

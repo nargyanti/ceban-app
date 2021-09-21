@@ -7,12 +7,12 @@ import com.example.ceban.databinding.ItemFileBinding
 import com.example.ceban.utils.Attachment
 
 class FileListAdapter: RecyclerView.Adapter<FileListAdapter.FileListViewHolder>() {
-    val fileList = ArrayList<Attachment>()
+    private val fileList = ArrayList<Attachment>()
 
     fun setData(data: List<Attachment>) {
         fileList.clear()
         fileList.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, data.size)
     }
 
     class FileListViewHolder(var binding: ItemFileBinding) : RecyclerView.ViewHolder(binding.root) {

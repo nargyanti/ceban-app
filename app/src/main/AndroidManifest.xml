@@ -15,10 +15,8 @@
         android:theme="@style/Theme.Ceban"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.main.MainActivity2"
-            android:exported="true"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.Ceban.NoActionBar" />
+            android:name=".ui.assignment.add.AssignmentAddActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.assignment.detail.guru.studentanswer.StudentAnswerActivity"
             android:exported="true" />

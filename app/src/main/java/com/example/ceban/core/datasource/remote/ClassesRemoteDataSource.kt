@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.ceban.core.datasource.remote.api.ClassesService
 import com.example.ceban.core.datasource.remote.requests.AnswerRequest
+import com.example.ceban.core.datasource.remote.requests.AssignmentAddRequest
 import com.example.ceban.core.datasource.remote.requests.SubjectRequest
 import com.example.ceban.core.datasource.remote.responses.*
+import com.example.ceban.core.model.Assignment
 import com.example.ceban.utils.MultipartHelper
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -28,12 +30,12 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
         }
     }
 
-    fun getAll(id: Int, level: String): LiveData<ApiResponse<List<SubjectsResponseItem>>> {
-        val liveData = MutableLiveData<ApiResponse<List<SubjectsResponseItem>>>()
-        classesService.getAllSubjects(id, level).enqueue(object : Callback<List<SubjectsResponseItem>> {
+    fun getAll(id: Int, level: String): LiveData<ApiResponse<List<SubjectResponse>>> {
+        val liveData = MutableLiveData<ApiResponse<List<SubjectResponse>>>()
+        classesService.getAllSubjects(id, level).enqueue(object : Callback<List<SubjectResponse>> {
             override fun onResponse(
-                call: Call<List<SubjectsResponseItem>>,
-                response: Response<List<SubjectsResponseItem>>
+                call: Call<List<SubjectResponse>>,
+                response: Response<List<SubjectResponse>>
             ) {
                 if(response.isSuccessful) {
                     val data = response.body()
@@ -45,7 +47,7 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
                 }
             }
 
-            override fun onFailure(call: Call<List<SubjectsResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<SubjectResponse>>, t: Throwable) {
                 liveData.postValue(ApiResponse.error("Error: ${t.message}", arrayListOf()))
             }
 
@@ -258,6 +260,33 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
             }
 
         })
+        return liveData
+    }
+
+    fun addAssignment(request: AssignmentAddRequest): LiveData<ApiResponse<AssignmentAddResponse>> {
+        val liveData = MutableLiveData<ApiResponse<AssignmentAddResponse>>()
+
+        classesService.addAssignment(request).enqueue(object : Callback<AssignmentAddResponse> {
+            override fun onResponse(
+                call: Call<AssignmentAddResponse>,
+                response: Response<AssignmentAddResponse>
+            ) {
+                if(response.isSuccessful) {
+                    val data = response.body()
+                    if(data != null) {
+                        liveData.value =  ApiResponse.success(data)
+                    }
+                }else{
+                    liveData.value =  ApiResponse.error(response.message(), AssignmentAddResponse())
+                }
+            }
+
+            override fun onFailure(call: Call<AssignmentAddResponse>, t: Throwable) {
+                liveData.value =  ApiResponse.error(t.message, AssignmentAddResponse())
+            }
+
+        })
+
         return liveData
     }
 }

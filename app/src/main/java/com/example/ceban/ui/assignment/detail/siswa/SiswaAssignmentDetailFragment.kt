@@ -50,7 +50,7 @@ class SiswaAssignmentDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSiswaAssignmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -161,11 +161,11 @@ class SiswaAssignmentDetailFragment : Fragment() {
             val uri = data?.data
             if (uri != null) {
                 Log.d("GetFile", "Path : ${uri.path}")
-                var inputStream =  activity?.contentResolver?.openInputStream(uri)
-                val date = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-                var file = File(File(activity?.filesDir, "photos"), "$date.jpg")
+                val inputStream =  activity?.contentResolver?.openInputStream(uri)
+                val date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date())
+                val file = File(File(activity?.filesDir, "photos"), "$date.jpg")
                 if (file.exists()) file.delete() else file.parentFile.mkdirs()
-                var outputStream = FileOutputStream(file)
+                val outputStream = FileOutputStream(file)
                 if (inputStream != null) {
                     val buf = ByteArray(8192)
                     var length: Int

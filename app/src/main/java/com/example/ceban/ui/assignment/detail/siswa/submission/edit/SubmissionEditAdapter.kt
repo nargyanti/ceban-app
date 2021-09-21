@@ -10,12 +10,12 @@ import com.example.ceban.utils.Attachment
 import com.example.ceban.utils.Injection
 
 abstract class SubmissionEditAdapter : RecyclerView.Adapter<SubmissionEditAdapter.StudentViewHolder>() {
-    val attachmentList = ArrayList<AnswerPictureResponse>()
+    private val attachmentList = ArrayList<AnswerPictureResponse>()
 
     fun setData(data: List<AnswerPictureResponse>) {
         attachmentList.clear()
         attachmentList.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, data.size)
     }
 
     inner class StudentViewHolder(private var binding: ItemStudentAnswerEditBinding) : RecyclerView.ViewHolder(binding.root) {

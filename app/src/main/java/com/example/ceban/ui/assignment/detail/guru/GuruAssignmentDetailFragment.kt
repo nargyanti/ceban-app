@@ -9,10 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ceban.core.datasource.remote.responses.AssignmentResponseItem
 import com.example.ceban.core.datasource.remote.responses.StatusResponse
-import com.example.ceban.core.model.Assignment
 import com.example.ceban.databinding.FragmentGuruAssignmentDetailBinding
 import com.example.ceban.ui.assignment.detail.AssignmentDetailViewModel
-import com.example.ceban.utils.StudentsData
 import com.example.ceban.utils.ViewModelFactory
 
 private const val EXTRA_ASSIGNMENT = "extra_assignment"
@@ -57,15 +55,6 @@ class GuruAssignmentDetailFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GuruAssignmentDetailActivity.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: AssignmentResponseItem) =
             GuruAssignmentDetailFragment().apply {

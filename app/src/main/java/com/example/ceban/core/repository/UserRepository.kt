@@ -6,7 +6,6 @@ import com.example.ceban.core.datasource.local.UserLocalDataSource
 import com.example.ceban.core.datasource.local.entity.UserEntity
 import com.example.ceban.core.datasource.remote.UserRemoteDataSource
 import com.example.ceban.core.datasource.remote.requests.LoginRequest
-import com.example.ceban.utils.USER_DATA
 
 class UserRepository private constructor(private val userLocalDataSource: UserLocalDataSource, private val userRemoteDataSource: UserRemoteDataSource){
     companion object {

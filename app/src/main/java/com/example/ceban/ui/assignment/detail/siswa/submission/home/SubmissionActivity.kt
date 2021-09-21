@@ -54,7 +54,7 @@ class SubmissionActivity : AppCompatActivity() {
 
     }
 
-    fun prepareView(id: Int) {
+    private fun prepareView(id: Int) {
         viewModel.getAnswerPictures(id).observe(this) {
             prepareRv(it)
         }
