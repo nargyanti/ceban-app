@@ -94,30 +94,30 @@ class SiswaAssignmentDetailFragment : Fragment() {
                 when(answer.status) {
                     StatusResponse.SUCCESS -> {
                         val uploadStatus = arrayListOf<Boolean>()
-                        viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
-                            fileList.forEach { attachment ->
-                                viewModel.addAnswerPictures(attachment.file, answer.body.id)
-                                    .observe(viewLifecycleOwner){ answerPicture ->
-                                        when(answerPicture.status) {
-                                            StatusResponse.SUCCESS -> {
-                                                Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                uploadStatus.add(true)
-                                            }
-                                            else -> {
-                                                Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                uploadStatus.add(false)
-                                            }
-                                        }
-                                    }
-                            }
-                            if (uploadStatus.size == fileListToAdd.size && uploadStatus.all { it }) {
-                                startActivity(Intent(activity, SubmissionActivity::class.java).apply {
-                                    putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
-                                    putExtra(SubmissionActivity.EXTRA_ANSWER, answer.body)
-                                })
-                                activity?.finish()
-                            }
-                        }
+//                        viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
+//                            fileList.forEach { attachment ->
+//                                viewModel.addAnswerPictures(attachment.file, answer.body.id)
+//                                    .observe(viewLifecycleOwner){ answerPicture ->
+//                                        when(answerPicture.status) {
+//                                            StatusResponse.SUCCESS -> {
+//                                                Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                uploadStatus.add(true)
+//                                            }
+//                                            else -> {
+//                                                Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                uploadStatus.add(false)
+//                                            }
+//                                        }
+//                                    }
+//                            }
+//                            if (uploadStatus.size == fileListToAdd.size && uploadStatus.all { it }) {
+//                                startActivity(Intent(activity, SubmissionActivity::class.java).apply {
+//                                    putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
+//                                    putExtra(SubmissionActivity.EXTRA_ANSWER, answer.body)
+//                                })
+//                                activity?.finish()
+//                            }
+//                        }
 
                     }
                     else -> {

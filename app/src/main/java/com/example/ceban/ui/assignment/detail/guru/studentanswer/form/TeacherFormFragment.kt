@@ -84,44 +84,44 @@ class TeacherFormFragment : Fragment() {
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                 val date = dateFormat.format(Date())
                 val request = AnswerRequest(assignmentId = assignment?.id, 0, student?.userId, date)
-                val uploadStatus = arrayListOf<Boolean>()
-                viewModel.addAnswer(request).observe(viewLifecycleOwner) { answer ->
-                    when(answer.status) {
-                        StatusResponse.SUCCESS -> {
-                            viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
-                                fileList.forEach {
-                                    student?.userId?.let { studentId ->
-                                        viewModel.addAnswerPictures(it.file, answer.body.id).observe(viewLifecycleOwner) {
-                                            when(it.status) {
-                                                StatusResponse.SUCCESS -> {
-                                                    Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                    uploadStatus.add(true)
-
-                                                    if (uploadStatus.size == fileList.size && uploadStatus.all { it }) {
-                                                        val fragment = AnswerFragment().apply {
-                                                            arguments = Bundle().apply {
-                                                                putParcelable(AnswerFragment.ANSWER, answer.body)
-                                                            }
-                                                        }
-                                                        requireActivity().supportFragmentManager.beginTransaction()
-                                                            .replace(R.id.student_answer_container, fragment)
-                                                            .commit()
-                                                    }
-                                                }
-                                                else -> {
-                                                    Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                    uploadStatus.add(false)
-                                                }
-                                            }
-                                        }
-                                    }
-
-
-                                }
-                            }
-                        }
-                    }
-                }
+//                val uploadStatus = arrayListOf<Boolean>()
+//                viewModel.addAnswer(request).observe(viewLifecycleOwner) { answer ->
+//                    when(answer.status) {
+//                        StatusResponse.SUCCESS -> {
+//                            viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
+//                                fileList.forEach {
+//                                    student?.userId?.let { studentId ->
+//                                        viewModel.addAnswerPictures(it.file, answer.body.id).observe(viewLifecycleOwner) {
+//                                            when(it.status) {
+//                                                StatusResponse.SUCCESS -> {
+//                                                    Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                    uploadStatus.add(true)
+//
+//                                                    if (uploadStatus.size == fileList.size && uploadStatus.all { it }) {
+//                                                        val fragment = AnswerFragment().apply {
+//                                                            arguments = Bundle().apply {
+//                                                                putParcelable(AnswerFragment.ANSWER, answer.body)
+//                                                            }
+//                                                        }
+//                                                        requireActivity().supportFragmentManager.beginTransaction()
+//                                                            .replace(R.id.student_answer_container, fragment)
+//                                                            .commit()
+//                                                    }
+//                                                }
+//                                                else -> {
+//                                                    Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                    uploadStatus.add(false)
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
 
             }
         }
