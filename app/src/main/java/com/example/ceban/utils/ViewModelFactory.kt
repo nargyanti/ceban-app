@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.ceban.core.repository.ClassesRepository
 import com.example.ceban.core.repository.UserRepository
+import com.example.ceban.ui.assignment.add.AssignmentAddViewModel
 import com.example.ceban.ui.assignment.detail.AssignmentDetailViewModel
 import com.example.ceban.ui.assignment.detail.guru.studentanswer.StudentAnswerViewModel
 import com.example.ceban.ui.assignment.detail.siswa.submission.edit.SubmissionEditViewModel
@@ -51,6 +52,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(SubmissionEditViewModel::class.java) -> {
                 SubmissionEditViewModel(classesRepository, userRepository) as T
+            }
+            modelClass.isAssignableFrom(AssignmentAddViewModel::class.java) -> {
+                AssignmentAddViewModel(classesRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

@@ -2,6 +2,7 @@ package com.example.ceban.core.repository
 
 import com.example.ceban.core.datasource.remote.ClassesRemoteDataSource
 import com.example.ceban.core.datasource.remote.requests.AnswerRequest
+import com.example.ceban.core.datasource.remote.requests.AssignmentAddRequest
 import com.example.ceban.core.datasource.remote.requests.SubjectRequest
 import java.io.File
 
@@ -29,4 +30,6 @@ class ClassesRepository(private val classesRemoteDataSource: ClassesRemoteDataSo
 
     fun getAnswerDetail(id: Int) = classesRemoteDataSource.getAnswer(id)
     fun editAnswer(answerRequest: AnswerRequest, answerId: Int) = classesRemoteDataSource.editAnswer(answerRequest, answerId)
+
+    fun addAssignment(request: AssignmentAddRequest) = classesRemoteDataSource.addAssignment(request)
 }

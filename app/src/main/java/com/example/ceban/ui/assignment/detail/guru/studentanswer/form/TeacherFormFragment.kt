@@ -84,59 +84,50 @@ class TeacherFormFragment : Fragment() {
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                 val date = dateFormat.format(Date())
                 val request = AnswerRequest(assignmentId = assignment?.id, 0, student?.userId, date)
-                val uploadStatus = arrayListOf<Boolean>()
-                viewModel.addAnswer(request).observe(viewLifecycleOwner) { answer ->
-                    when(answer.status) {
-                        StatusResponse.SUCCESS -> {
-                            viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
-                                fileList.forEach {
-                                    student?.userId?.let { studentId ->
-                                        viewModel.addAnswerPictures(it.file, answer.body.id).observe(viewLifecycleOwner) {
-                                            when(it.status) {
-                                                StatusResponse.SUCCESS -> {
-                                                    Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                    uploadStatus.add(true)
-
-                                                    if (uploadStatus.size == fileList.size && uploadStatus.all { it }) {
-                                                        val fragment = AnswerFragment().apply {
-                                                            arguments = Bundle().apply {
-                                                                putParcelable(AnswerFragment.ANSWER, answer.body)
-                                                            }
-                                                        }
-                                                        requireActivity().supportFragmentManager.beginTransaction()
-                                                            .replace(R.id.student_answer_container, fragment)
-                                                            .commit()
-                                                    }
-                                                }
-                                                else -> {
-                                                    Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                    uploadStatus.add(false)
-                                                }
-                                            }
-                                        }
-                                    }
-
-
-                                }
-                            }
-                        }
-                    }
-                }
+//                val uploadStatus = arrayListOf<Boolean>()
+//                viewModel.addAnswer(request).observe(viewLifecycleOwner) { answer ->
+//                    when(answer.status) {
+//                        StatusResponse.SUCCESS -> {
+//                            viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
+//                                fileList.forEach {
+//                                    student?.userId?.let { studentId ->
+//                                        viewModel.addAnswerPictures(it.file, answer.body.id).observe(viewLifecycleOwner) {
+//                                            when(it.status) {
+//                                                StatusResponse.SUCCESS -> {
+//                                                    Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                    uploadStatus.add(true)
+//
+//                                                    if (uploadStatus.size == fileList.size && uploadStatus.all { it }) {
+//                                                        val fragment = AnswerFragment().apply {
+//                                                            arguments = Bundle().apply {
+//                                                                putParcelable(AnswerFragment.ANSWER, answer.body)
+//                                                            }
+//                                                        }
+//                                                        requireActivity().supportFragmentManager.beginTransaction()
+//                                                            .replace(R.id.student_answer_container, fragment)
+//                                                            .commit()
+//                                                    }
+//                                                }
+//                                                else -> {
+//                                                    Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                    uploadStatus.add(false)
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
 
             }
         }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TeacherFormFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(student: AssignmentStudentResponse?, assignment: AssignmentResponseItem?) =
             TeacherFormFragment().apply {
@@ -180,10 +171,10 @@ class TeacherFormFragment : Fragment() {
             val uri = data?.data
             if (uri != null) {
                 Log.d("GetFile", "Path : ${uri.path}")
-                var inputStream =  activity?.contentResolver?.openInputStream(uri)
-                var file = File(File(activity?.filesDir, "photos"), "3.jpg")
+                val inputStream =  activity?.contentResolver?.openInputStream(uri)
+                val file = File(File(activity?.filesDir, "photos"), "3.jpg")
                 if (file.exists()) file.delete() else file.parentFile.mkdirs()
-                var outputStream = FileOutputStream(file)
+                val outputStream = FileOutputStream(file)
                 if (inputStream != null) {
                     val buf = ByteArray(8192)
                     var length: Int

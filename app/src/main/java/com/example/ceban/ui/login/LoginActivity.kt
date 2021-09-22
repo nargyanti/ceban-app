@@ -22,18 +22,18 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[LoginViewModel::class.java]
-        setContentView(binding.root)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         viewModel.getUser().observe(this) {
             if (it.id > 0) {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
+            }else{
+                setContentView(binding.root)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         binding.btnLogin.setOnClickListener {
             login()

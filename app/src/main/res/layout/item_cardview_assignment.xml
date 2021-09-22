@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/tv_assignment_duedatetime"
-                android:layout_width="291dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 tools:text="Kamis, 28 Juli 2021" />

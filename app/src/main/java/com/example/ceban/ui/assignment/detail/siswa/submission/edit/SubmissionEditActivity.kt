@@ -117,7 +117,7 @@ class SubmissionEditActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    fun uploadPictures(attachment: Attachment) {
+    private fun uploadPictures(attachment: Attachment) {
         viewModel.addPictures(attachment.file, answerId).observe(this) {
             when(it.status) {
                 StatusResponse.SUCCESS -> {
@@ -133,10 +133,10 @@ class SubmissionEditActivity : AppCompatActivity() {
             val uri = data?.data
             if (uri != null) {
                 Log.d("GetFile", "Path : ${uri.path}")
-                var inputStream = contentResolver.openInputStream(uri)
-                var file = File(File(filesDir, "photos"), "3.jpg")
+                val inputStream = contentResolver.openInputStream(uri)
+                val file = File(File(filesDir, "photos"), "3.jpg")
                 if (file.exists()) file.delete() else file.parentFile.mkdirs()
-                var outputStream = FileOutputStream(file)
+                val outputStream = FileOutputStream(file)
                 if (inputStream != null) {
                     val buf = ByteArray(8192)
                     var length: Int

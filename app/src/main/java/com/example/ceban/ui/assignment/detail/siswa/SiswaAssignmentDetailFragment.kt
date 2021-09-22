@@ -50,7 +50,7 @@ class SiswaAssignmentDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSiswaAssignmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -94,30 +94,30 @@ class SiswaAssignmentDetailFragment : Fragment() {
                 when(answer.status) {
                     StatusResponse.SUCCESS -> {
                         val uploadStatus = arrayListOf<Boolean>()
-                        viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
-                            fileList.forEach { attachment ->
-                                viewModel.addAnswerPictures(attachment.file, answer.body.id)
-                                    .observe(viewLifecycleOwner){ answerPicture ->
-                                        when(answerPicture.status) {
-                                            StatusResponse.SUCCESS -> {
-                                                Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                uploadStatus.add(true)
-                                            }
-                                            else -> {
-                                                Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
-                                                uploadStatus.add(false)
-                                            }
-                                        }
-                                    }
-                            }
-                            if (uploadStatus.size == fileListToAdd.size && uploadStatus.all { it }) {
-                                startActivity(Intent(activity, SubmissionActivity::class.java).apply {
-                                    putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
-                                    putExtra(SubmissionActivity.EXTRA_ANSWER, answer.body)
-                                })
-                                activity?.finish()
-                            }
-                        }
+//                        viewModel.fileList.observe(viewLifecycleOwner) { fileList ->
+//                            fileList.forEach { attachment ->
+//                                viewModel.addAnswerPictures(attachment.file, answer.body.id)
+//                                    .observe(viewLifecycleOwner){ answerPicture ->
+//                                        when(answerPicture.status) {
+//                                            StatusResponse.SUCCESS -> {
+//                                                Toast.makeText(context, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                uploadStatus.add(true)
+//                                            }
+//                                            else -> {
+//                                                Toast.makeText(context, "Terjadi kesalahan saat mengunggah gambar", Toast.LENGTH_SHORT).show()
+//                                                uploadStatus.add(false)
+//                                            }
+//                                        }
+//                                    }
+//                            }
+//                            if (uploadStatus.size == fileListToAdd.size && uploadStatus.all { it }) {
+//                                startActivity(Intent(activity, SubmissionActivity::class.java).apply {
+//                                    putExtra(SubmissionActivity.EXTRA_ASSIGNMENT, assignment)
+//                                    putExtra(SubmissionActivity.EXTRA_ANSWER, answer.body)
+//                                })
+//                                activity?.finish()
+//                            }
+//                        }
 
                     }
                     else -> {
@@ -161,11 +161,11 @@ class SiswaAssignmentDetailFragment : Fragment() {
             val uri = data?.data
             if (uri != null) {
                 Log.d("GetFile", "Path : ${uri.path}")
-                var inputStream =  activity?.contentResolver?.openInputStream(uri)
-                val date = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-                var file = File(File(activity?.filesDir, "photos"), "$date.jpg")
+                val inputStream =  activity?.contentResolver?.openInputStream(uri)
+                val date = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(Date())
+                val file = File(File(activity?.filesDir, "photos"), "$date.jpg")
                 if (file.exists()) file.delete() else file.parentFile.mkdirs()
-                var outputStream = FileOutputStream(file)
+                val outputStream = FileOutputStream(file)
                 if (inputStream != null) {
                     val buf = ByteArray(8192)
                     var length: Int

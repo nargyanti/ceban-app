@@ -21,7 +21,7 @@ class UserPreferences(context: Context) {
     fun setUser(userEntity: UserEntity) {
         preferences.edit {
             putString(NAME, userEntity.name)
-            putInt(ID, userEntity.id ?: 0)
+            putInt(ID, userEntity.id)
             putString(USERNAME, userEntity.username)
             putString(PASSWORD, userEntity.password)
             putString(TELP, userEntity.telp)

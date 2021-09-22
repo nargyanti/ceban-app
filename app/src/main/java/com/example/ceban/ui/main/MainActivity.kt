@@ -11,13 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
 import com.example.ceban.core.datasource.remote.responses.StatusResponse
-import com.example.ceban.core.model.Subject
 import com.example.ceban.databinding.ActivityMainBinding
 import com.example.ceban.ui.login.LoginActivity
-import com.example.ceban.utils.SubjectsData
 import com.example.ceban.utils.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
-import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvSubjects: RecyclerView

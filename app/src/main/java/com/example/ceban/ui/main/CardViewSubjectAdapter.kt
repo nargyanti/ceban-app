@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ceban.R
-import com.example.ceban.core.datasource.remote.responses.SubjectsResponseItem
+import com.example.ceban.core.datasource.remote.responses.SubjectResponse
 import com.example.ceban.ui.assignment.home.AssignmentActivity
 
-class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>) :
+class CardViewSubjectAdapter(private val listSubject: List<SubjectResponse>) :
     RecyclerView.Adapter<CardViewSubjectAdapter.CardViewViewHolder>() {
 
     class CardViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,10 +35,11 @@ class CardViewSubjectAdapter(private val listSubject: List<SubjectsResponseItem>
         holder.tvAssignmentAmount.text = "${subject.assignmentCount.toString()} Tugas"
         holder.tvTeacher.text = subject.teacherName
         holder.tvStudentAmount.text = "${subject.studentCount.toString()} Siswa"
+        holder.tvClass.text = subject.className
         holder.cardSubject.setOnClickListener {
             val context = holder.cardSubject.context
             val moveToDetailIntent = Intent(context, AssignmentActivity::class.java)
-            moveToDetailIntent.putExtra(AssignmentActivity.EXTRA_SUBJECTID, subject.subjectId)
+            moveToDetailIntent.putExtra(AssignmentActivity.EXTRA_SUBJECTID, subject.id)
             context.startActivity(moveToDetailIntent)
         }
     }
