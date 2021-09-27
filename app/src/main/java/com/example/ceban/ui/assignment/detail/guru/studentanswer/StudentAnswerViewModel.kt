@@ -26,4 +26,6 @@ class StudentAnswerViewModel(private val classesRepository: ClassesRepository,
     fun getAnswer(answerId: Int) = classesRepository.getAnswerDetail(answerId)
 
     fun editScore(answerRequest: AnswerRequest, answerId: Int) = classesRepository.editAnswer(answerRequest, answerId)
+
+    fun findAnswerPictures(id: Int) = classesRepository.findAnswerPictures(id)
 }

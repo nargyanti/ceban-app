@@ -289,4 +289,31 @@ class ClassesRemoteDataSource private constructor(private val classesService: Cl
 
         return liveData
     }
+
+    fun findAnswerPictures(id: Int): LiveData<ApiResponse<AnswerPictureResponse>> {
+        val liveData = MutableLiveData<ApiResponse<AnswerPictureResponse>>()
+
+        classesService.getAnswerPicture(id).enqueue(object : Callback<AnswerPictureResponse> {
+            override fun onResponse(
+                call: Call<AnswerPictureResponse>,
+                response: Response<AnswerPictureResponse>
+            ) {
+                if(response.isSuccessful) {
+                    val data = response.body()
+                    if(data != null) {
+                        liveData.value =  ApiResponse.success(data)
+                    }
+                }else{
+                    liveData.value =  ApiResponse.error(response.message(), AnswerPictureResponse())
+                }
+            }
+
+            override fun onFailure(call: Call<AnswerPictureResponse>, t: Throwable) {
+                liveData.value =  ApiResponse.error(t.message, AnswerPictureResponse())
+            }
+
+        })
+
+        return liveData
+    }
 }

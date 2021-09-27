@@ -32,4 +32,6 @@ class ClassesRepository(private val classesRemoteDataSource: ClassesRemoteDataSo
     fun editAnswer(answerRequest: AnswerRequest, answerId: Int) = classesRemoteDataSource.editAnswer(answerRequest, answerId)
 
     fun addAssignment(request: AssignmentAddRequest) = classesRemoteDataSource.addAssignment(request)
+
+    fun findAnswerPictures(id: Int) = classesRemoteDataSource.findAnswerPictures(id)
 }
