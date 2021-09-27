@@ -40,6 +40,9 @@ interface ClassesService {
     @DELETE("answer_pictures/{id}")
     fun deleteAnswerPicture(@Path("id") pictureId: Int): Call<MessageResponse>
 
+    @GET("answer_pictures/{id}")
+    fun getAnswerPicture(@Path("id") pictureId: Int): Call<AnswerPictureResponse>
+
     @GET("answers/{id}")
     fun getAnswer(@Path("id") id: Int): Call<AnswerResponse>
 

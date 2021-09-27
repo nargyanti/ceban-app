@@ -64,14 +64,13 @@ class AnswerFragment : Fragment() {
                 StatusResponse.SUCCESS -> {
                     answer = response.body
 
-                    viewModel.getPictures(answerId).observe(viewLifecycleOwner) { response ->
+                    viewModel.findAnswerPictures(2).observe(viewLifecycleOwner) { response ->
                         when(response.status) {
                             StatusResponse.SUCCESS -> {
                                 jawaban = ""
-                                response.body.forEach { pictures ->
-                                    imageList.add( pictures.path)
-                                    jawaban += pictures.convertResult + "\n"
-                                }
+                                val pictures = response.body
+                                imageList.add( pictures.path)
+                                jawaban += pictures.convertResult + "\n"
                                 binding.tvStudentAnswer.text = jawaban
                                 prepareImage()
                             }
